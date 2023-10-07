@@ -1,0 +1,16 @@
+#img-pedido{
+    height: 13.2rem;
+    object-fit: cover;
+}
+@media screen and (max-width:999px){
+    #img-pedido{
+        display: none;
+    }
+    .card-img{
+        display: none;
+    }
+}
+
+.productDetailContainer{
+    margin-bottom: 15.5rem;
+}

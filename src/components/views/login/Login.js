@@ -13,7 +13,7 @@ const Login = ({ setLoggedUser }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
 
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USUARIO;
+  const URL = process.env.REACT_APP_API_RESTAURANTE;
 
 
   const handleChange = (event) => {
@@ -35,7 +35,7 @@ const Login = ({ setLoggedUser }) => {
 
       setSpinnner(true)
 
-      const res = await axios.post(`${URL}/login`, {
+      const res = await axios.post(`${URL}/auth/login`, {
         email: inputs.email,
         password: inputs.password,
       });

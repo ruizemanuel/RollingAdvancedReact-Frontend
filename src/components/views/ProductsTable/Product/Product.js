@@ -1,9 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../../config/axiosInit"
+import { useDispatch } from "react-redux";
+import { deleteItem, getData, getDataToEdit } from "../../../../share/domain/services/appServices";
 
 const Product = ({ product, URL, getApi, getSpinner }) => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleEdit = (id) => {
+    dispatch(getDataToEdit('/products', id)).then(() => {
+      navigate(`/product/edit/${product._id}`)
+    })
+    
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -16,35 +28,10 @@ const Product = ({ product, URL, getApi, getSpinner }) => {
       confirmButtonText: 'Borrar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        try {
-          getSpinner(true)
-          //consulta delete con axios
-
-          const res = await axios.delete(`${URL}/${id}`,{
-            headers: {
-              "Content-Type": "application/json",
-              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                .token,
-            },
-          });
-
-
-          if (res.status === 200) {
-            Swal.fire(
-              'Eliminado!',
-              'Plato eliminado con éxito.',
-              'success'
-            )
-            //volvemos a recargar la tabla
-            getApi();
-          }
-        } catch (error) {
-          console.log(error);
-          //agregar cartel alert o modal al usuario con el error
-        }
-        finally {
-          getSpinner(false)
-        }
+        dispatch(deleteItem('/products', id))
+        .then(() => {
+          dispatch(getData('/products'))
+        })
       }
     })
   };
@@ -62,12 +49,12 @@ const Product = ({ product, URL, getApi, getSpinner }) => {
         <td className="w-25">
           <div className="d-flex justify-content-center">
 
-            <Link
-              to={`/product/edit/${product._id}`}
-              className="update-btn mx-1 text-decoration-none text-center"
+            <button
+              className="update-btn mx-1"
+              onClick={() => handleEdit(product._id)}
             >
               Modificar
-            </Link>
+            </button>
 
 
 

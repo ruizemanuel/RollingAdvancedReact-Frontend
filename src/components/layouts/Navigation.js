@@ -58,10 +58,10 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                 <>
                   {roles?.includes('admin') ? (
                     <NavDropdown title="Administrar" id="administrar-dropdown">
-                    <Link className="dropdown-item" to="/product/table">
+                    <Link className="dropdown-item" to="/products">
                       Menu
                     </Link>
-                    <Link className="dropdown-item" to="/user/table">
+                    <Link className="dropdown-item" to="/users">
                       Usuarios
                     </Link>
                     <Link className="dropdown-item" to="/pedidos/table">

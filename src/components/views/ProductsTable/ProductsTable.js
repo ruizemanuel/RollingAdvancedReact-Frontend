@@ -2,25 +2,20 @@ import React, { useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "./Product/Product";
+import { useSelector } from "react-redux";
 
-const ProductsTable = ({ products, URL, getApi }) => {
+const ProductsTable = () => { 
 
-  const [spinner, setSpinnner] = useState(false);
+  const { loading, data: products } = useSelector(state => state.app);
 
-
-
-  const getSpinner = (spinner) => {
-    setSpinnner(spinner)
-  };
-
-
+  console.log('products', products)
   return (
     <div>
       <Container className="py-5 containerTable">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Administrar Menú</h1>
 
-          {spinner ? (
+          {loading ? (
 
             <div className="btn-primary text-decoration-none text-center text-light">
               Agregar un Menú
@@ -42,7 +37,7 @@ const ProductsTable = ({ products, URL, getApi }) => {
 
         {products?.length !== 0 ?
 
-          spinner ? (
+          loading ? (
 
             <div class="text-center " >
               <div class="spinner-border" role="status">
@@ -70,9 +65,6 @@ const ProductsTable = ({ products, URL, getApi }) => {
                   <Product
                     key={product._id}
                     product={product}
-                    URL={URL}
-                    getApi={getApi}
-                    getSpinner={getSpinner}
                   />
                 ))}
 

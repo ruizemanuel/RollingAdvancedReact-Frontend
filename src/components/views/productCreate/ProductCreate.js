@@ -10,14 +10,19 @@ import {
 } from "../../helpers/validateFields";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../config/axiosInit";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewData, getData } from "../../../share/domain/services/appServices";
 
-const ProductCreate = ({ URL, getApi }) => {
+const ProductCreate = () => {
 
   //One general state
   const [inputs, setInputs] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
+  const { loading } = useSelector(state => state.app);
+  console.log('loading en create', loading);
+  const dispatch = useDispatch();
   //useNavigate
   const navigate = useNavigate();
 
@@ -36,22 +41,22 @@ const ProductCreate = ({ URL, getApi }) => {
     if (validateProductName(inputs.productName) !== 'ok') {
       Swal.fire("Error!", `${validateProductName(inputs.productName)}`, "error");
       return;
-    } else if(validatePrice(inputs.price) !== 'ok'){
+    } else if (validatePrice(inputs.price) !== 'ok') {
       Swal.fire("Error!", `${validatePrice(inputs.price)}`, "error");
       return;
-    } else if(validateDescription(inputs.description) !== 'ok'){
+    } else if (validateDescription(inputs.description) !== 'ok') {
       Swal.fire("Error!", `${validateDescription(inputs.description)}`, "error");
       return;
-    } else if(validateUrl(inputs.urlImg) !== 'ok'){
+    } else if (validateUrl(inputs.urlImg) !== 'ok') {
       Swal.fire("Error!", `${validateUrl(inputs.urlImg)}`, "error");
       return;
-    } else if(validateCategory(inputs.category) !== 'ok'){
+    } else if (validateCategory(inputs.category) !== 'ok') {
       Swal.fire("Error!", `${validateCategory(inputs.category)}`, "error");
       return;
     }
 
 
-    
+
 
     //Enviar los datos
     const newProduct = {
@@ -73,42 +78,13 @@ const ProductCreate = ({ URL, getApi }) => {
       confirmButtonText: "Guardar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        try {
-          setSpinnner(true)
-          const res = await axios.post(URL, newProduct, {
-            headers: {
-              "Content-Type": "application/json",
-              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                .token,
-            },
-          });
+        dispatch(createNewData('/products', newProduct)).then(() => {
+          // resetear el formulario
+          e.target.reset();
+          navigate("/products");
+        })
 
-          if (res.status === 201) {
-            Swal.fire(
-              "Agregado",
-              "Plato creado exitosamente",
-              "success"
-            );
-            // resetear el formulario
-            e.target.reset();
-            //recarga la tabla
-            getApi();
-            //navega hasta la productsTable
-            navigate("/product/table");
-          }
-        } catch (error) {
-          console.log(error.response.data.message);
-          error.response.data?.message &&
-            setErrorMessage(error.response.data?.message);
-          error.response.data.errors?.length > 0 &&
-            error.response.data.errors?.map((error) =>
-              setErrorMessage(error.msg)
-            );
-          setShow(true);
-        }
-        finally {
-          setSpinnner(false)
-        }
+
       }
     });
   };
@@ -185,7 +161,7 @@ const ProductCreate = ({ URL, getApi }) => {
           </Form.Group>
 
 
-          {spinner ? (
+          {loading ? (
 
             <div className="text-end">
               <button class="btn-primary text-light" type="button" disabled>
@@ -197,14 +173,14 @@ const ProductCreate = ({ URL, getApi }) => {
           ) : (
 
             <div className="text-end">
-            <button className="btn-primary text-light">Guardar</button>
-          </div>
+              <button className="btn-primary text-light">Guardar</button>
+            </div>
 
           )}
 
 
 
-          
+
         </Form>
         {show && (
           <Alert

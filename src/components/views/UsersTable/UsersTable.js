@@ -3,29 +3,15 @@ import { Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import User from "./User/User";
 import axios from '../../../config/axiosInit'
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../../../share/domain/services/appServices";
 
 const UsersTable = () => {
 
-  const [users, setUsers] = useState([]);
+  //const [users, setUsers] = useState([]);
   const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USERS;
-
-  useEffect(() => {
-    getApi()
-  }, []);
-
-
-  const getApi = async () => {
-    try {
-      const res = await axios.get(URL);
-      const userApi = res?.data;
-
-      setUsers(userApi);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
+  const dispatch = useDispatch();
+  const { data: users } = useSelector(state => state.app);
 
   return (
     <div>
@@ -54,8 +40,8 @@ const UsersTable = () => {
               <User
                 key={user._id}
                 user={user}
-                URL_usuarios={URL}
-                getApi_users={getApi}
+                // URL_usuarios={URL}
+                // getApi_users={getApi}
               />
             ))}
           </tbody>

@@ -8,6 +8,8 @@ import {
 } from "../../helpers/validateFields";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../config/axiosInit";
+import { useDispatch } from "react-redux";
+import { createNewData } from "../../../share/domain/services/appServices";
 
 const UserCreate = () => {
 
@@ -19,6 +21,7 @@ const UserCreate = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
   //useNavigate
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -74,20 +77,11 @@ const UserCreate = () => {
         try {
           setSpinnner(true)
           //la petición con Axios
-          const res = await axios.post(`${URL}/register`, newUser);
-
-          if (res.status === 201) {
-            Swal.fire(
-              "Excelente!",
-              "Usuario creado con éxito",
-              "success"
-            );
+          dispatch(createNewData('/auth/register', newUser)).then(() => {
             // resetear el formulario
             e.target.reset();
-          
-            //navega hasta la productsTable
-            navigate("/user/table");
-          }
+            navigate("/users");
+          })
         } catch (error) {
           console.log(error.response.data.errors);
           error.response.data?.message &&

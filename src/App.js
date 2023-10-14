@@ -21,6 +21,9 @@ import PedidosTable from "./components/views/PedidosTable/PedidosTable";
 import PedidosTableAdmin from "./components/views/PedidosTableAdmin/PedidosTableAdmin";
 import PedidoAdminEdit from "./components/views/PedidoAdminEdit/PedidoAdminEdit";
 import CreditCardValidator from "./components/views/creditCardValidator/creditCardValidator";
+import HomeContainer from "./components/views/home/HomeContainer";
+import ProductsContainer from "./components/views/ProductsTable/ProductsContainer";
+import UsersContainer from "./components/views/UsersTable/UsersContainer";
 
 
 function App() {
@@ -29,45 +32,20 @@ function App() {
   const [loggedUser, setLoggedUser] = useState(localStorage.getItem('user-token') ? JSON.parse(localStorage.getItem("user-token")) : {});
   const URL = process.env.REACT_APP_API_HAMBURGUESERIA;
 
-  useEffect(() => {
-    getApi();
-  }, []);
-
-  const getApi = async () => {
-    try {
-      setSpinnner(true)
-      const res = await axios.get(URL);
-      const productApi = res?.data;
-
-      setProducts(productApi);
-    } catch (error) {
-      console.log(error);
-    }
-    finally{
-      setSpinnner(false)
-    }
-  };
-
-
-
   return (
     <div>
       <BrowserRouter>
         <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} products={products} />
         <main>
           <Routes>
-            <Route exact path="/" element={<Home products={products}  spinner={spinner}/>} />
+            <Route exact path="/" element={<HomeContainer />}/>
             <Route
               exact
-              path="/product/table"
+              path="/products"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
-                  <ProductsTable
-                    products={products}
-                    URL={URL}
-                    getApi={getApi}
-                  />
-                </ProtectedRoute>
+                  <ProtectedRoute loggedUser={loggedUser}>
+                    <ProductsContainer />
+                  </ProtectedRoute>
               }
             />
 
@@ -75,9 +53,9 @@ function App() {
               exact
               path="/product/create"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
-                  <ProductCreate URL={URL} getApi={getApi} />
-                </ProtectedRoute>
+                  <ProtectedRoute loggedUser={loggedUser}>
+                    <ProductCreate />
+                  </ProtectedRoute>
               }
             />
 
@@ -85,19 +63,19 @@ function App() {
               exact
               path="/product/edit/:id"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
-                  <ProductEdit URL={URL} getApi={getApi} />
-                </ProtectedRoute>
+                  <ProtectedRoute loggedUser={loggedUser}>
+                    <ProductEdit />
+                  </ProtectedRoute>
               }
             />
 
             <Route
               exact
-              path="/user/table"
+              path="/users"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
-                  <UsersTable />
-                </ProtectedRoute>
+                  <ProtectedRoute loggedUser={loggedUser}>
+                    <UsersContainer />
+                  </ProtectedRoute>
               }
             />
 
@@ -163,7 +141,7 @@ function App() {
               path="/auth/login/"
               element={<Login setLoggedUser={setLoggedUser} />}
             />
-            <Route exact path="/auth/register/" element={<Register/>} />
+            <Route exact path="/auth/register/" element={<Register />} />
             <Route exact path="*" element={<Error404 />} />
           </Routes>
         </main>

@@ -17,7 +17,7 @@ const Register = () => {
   const [spinner, setSpinnner] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USUARIO
+  const URL = process.env.REACT_APP_API_RESTAURANTE
 
 
   const handleChange = (event) => {
@@ -64,7 +64,7 @@ const Register = () => {
     try {
 
       setSpinnner(true)
-      const res = await axios.post(`${URL}/register`, newUser);
+      const res = await axios.post(`${URL}/auth/register`, newUser);
 
       if (res.status === 201) {
         const templateParams = {

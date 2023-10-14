@@ -10,13 +10,16 @@ import {
   validateUrl,
 } from "../../helpers/validateFields";
 import axios from "../../../config/axiosInit"
+import { useDispatch, useSelector } from "react-redux";
+import { getData, updateData } from "../../../share/domain/services/appServices";
 
 const ProductEdit = ({ URL, getApi }) => {
   //State
-  const [product, setProduct] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
+  const { dataToEdit: product } = useSelector(state => state.app);
+  const [localCategory, setLocalCategory] = useState(product?.category);
   //Param
   const { id } = useParams();
   //References
@@ -26,24 +29,13 @@ const ProductEdit = ({ URL, getApi }) => {
   const urlImgRef = useRef('');
   //Navigate
   const navigate = useNavigate();
-
-  //llamado a la Api para obtener el producto por su id
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getOne();
-  }, []);
-
-  const getOne = async () => {
-    try {
-      //la peticion con Axios
-      const res = await axios.get(`${URL}/${id}`);
-      const productApi = res.data;
-      setProduct(productApi);
-
-    } catch (error) {
-      console.log(error);
+    if(!product){
+      return navigate('/products');
     }
-  };
+  }, [product])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +64,7 @@ const ProductEdit = ({ URL, getApi }) => {
       price: priceRef.current.value,
       description: descriptionRef.current.value,
       urlImg: urlImgRef.current.value,
-      category: product.category,
+      category: localCategory,
     };
 
     Swal.fire({
@@ -83,34 +75,9 @@ const ProductEdit = ({ URL, getApi }) => {
       confirmButtonText: "Modificar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        try {
-          setSpinnner(true)
-          const res = await axios.put(`${URL}/${id}`, productUpdated, {
-            headers: {
-              "Content-Type": "application/json",
-              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                .token,
-            },
-          });
-
-          if (res.status === 200) {
-            Swal.fire("Excelente!", "Plato actualizado", "success");
-            getApi();
-            navigate("/product/table");
-          }
-        } catch (error) {
-          console.log(error.response.data.message);
-          error.response.data?.message &&
-            setErrorMessage(error.response.data?.message);
-          error.response.data.errors?.length > 0 &&
-            error.response.data.errors?.map((error) =>
-              setErrorMessage(error.msg)
-            );
-          setShow(true);
-        }
-        finally {
-          setSpinnner(false)
-        }
+        dispatch(updateData('/products', productUpdated, id)).then(() => {
+          navigate('/products');
+        })
       }
     });
   };
@@ -130,7 +97,7 @@ const ProductEdit = ({ URL, getApi }) => {
             <Form.Control
               type="text"
               placeholder="Ej: burger"
-              defaultValue={product.productName}
+              defaultValue={product?.productName}
               ref={productNameRef}
               required
               maxLength={100}
@@ -141,7 +108,7 @@ const ProductEdit = ({ URL, getApi }) => {
             <Form.Control
               type="number"
               placeholder="Ej: 50"
-              defaultValue={product.price}
+              defaultValue={product?.price}
               ref={priceRef}
               required
               maxLength={6}
@@ -152,7 +119,7 @@ const ProductEdit = ({ URL, getApi }) => {
             <Form.Control
               type="text"
               placeholder="Ej: Inserte la descripción del producto"
-              defaultValue={product.description}
+              defaultValue={product?.description}
               ref={descriptionRef}
               required
               maxLength={200}
@@ -163,7 +130,7 @@ const ProductEdit = ({ URL, getApi }) => {
             <Form.Control
               type="text"
               placeholder="Ej: https://media.istockphoto.com/photos/two-freshly-baked-french-id1277579771?k=20"
-              defaultValue={product.urlImg}
+              defaultValue={product?.urlImg}
               ref={urlImgRef}
               required
             />
@@ -171,8 +138,8 @@ const ProductEdit = ({ URL, getApi }) => {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Label>Categoría*</Form.Label>
             <Form.Select
-              value={product.category}
-              onChange={({ target }) => setProduct({ ...product, category: target.value })}
+              value={localCategory}
+              onChange={({ target }) => setLocalCategory(target.value)}
             >
               <option value="">Selecciona una categoría</option>
               <option value="pizza">Pizza</option>

@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import axios from "../../../config/axiosInit"
+import { useDispatch, useSelector } from "react-redux";
+import { updateData } from "../../../share/domain/services/appServices";
 
 const UserEdit = () => {
 
@@ -13,29 +15,31 @@ const UserEdit = () => {
   const [userAdmin, setUserAdmin] = useState(false);
   const [spinner, setSpinnner] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const { dataToEdit: userApi } = useSelector(state => state.app);
+  const dispatch = useDispatch();
   //References
   let rolesRef = [];
 
   //Param
   const { id } = useParams();
 
-
-
   //Navigate
   const navigate = useNavigate();
 
-  //llamado a la Api para obtener el usuario por su id
+  useEffect(() => {
+    if(!userApi){
+      return navigate('/users');
+    }
+  }, [userApi])
 
   useEffect(() => {
-    getOne();
+    setCheckboxes();
   }, []);
 
-  const getOne = async () => {
+  const setCheckboxes = async () => {
     try {
 
       //la peticion con Axios
-      const res = await axios.get(`${URL}/${id}`);
-      const userApi = res.data;
       userApi.roles.includes('admin') && setUserAdmin(true);
       setIsChecked(userApi.activo)
       rolesRef = userApi.roles
@@ -84,18 +88,9 @@ const UserEdit = () => {
       if (result.isConfirmed) {
         try {
           setSpinnner(true)
-          const res = await axios.put(`${URL}/${id}`, userUpdated, {
-            headers: {
-              "Content-Type": "application/json",
-              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                .token
-            }
-          });
-
-          if (res.status === 200) {
-            Swal.fire("Modificado!", "Usuario modificado con éxito", "success");
-            navigate("/user/table");
-          }
+          dispatch(updateData('/users', userUpdated, id)).then(() => {
+            navigate('/users');
+          })
         } catch (error) {
           console.log(error);
         }

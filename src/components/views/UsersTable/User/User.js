@@ -22,6 +22,8 @@ const User = ({ user, URL_usuarios, getApi_users }) => {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>{user.activo ? 'activo' : 'inactivo'}</td>
+      <td>{user?.roles?.map((rol, i) => <div key={i}>{rol}</div>)}</td>
+      
 
       <td className="w-25">
         <div className="d-flex justify-content-center">

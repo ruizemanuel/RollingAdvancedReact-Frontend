@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Container, Form, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import User from "./User/User";
 import axios from '../../../config/axiosInit'
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../../share/domain/services/appServices";
+import SearchBar from "../../layouts/SearchBar";
 
 const UsersTable = () => {
 
@@ -12,6 +13,17 @@ const UsersTable = () => {
   const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USERS;
   const dispatch = useDispatch();
   const { data: users } = useSelector(state => state.app);
+  const [filteredUsers, setFilteredUsers] = useState(users);
+
+  const handleSearch = (searchTerm) => {
+    const filtered = users.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredUsers(filtered);
+  };
+
+  const handleChange = (searchTerm) => {
+    const filtered = users.filter(user => user.roles.includes(searchTerm.target.value));
+    setFilteredUsers(filtered);
+  };
 
   return (
     <div>
@@ -26,29 +38,39 @@ const UsersTable = () => {
           </Link>
         </div>
         <hr />
-        {users?.length !== 0 ?
-        <Table bordered hover responsive className="align-middle mt-3">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users?.map((user) => (
-              <User
-                key={user._id}
-                user={user}
+        <div className="d-flex justify-content-between">
+          <SearchBar data={users} onSearch={handleSearch} setFilteredData={setFilteredUsers} />
+          <Form.Select onChange={handleChange} className="w-25">
+            <option disabled selected>Filtrar por rol</option>
+            <option value="user">Usuario</option>
+            <option value="admin">Admin</option>
+          </Form.Select>
+        </div>
+
+        {filteredUsers?.length !== 0 ?
+          <Table bordered hover responsive className="align-middle mt-3">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th>Rol</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers?.map((user) => (
+                <User
+                  key={user._id}
+                  user={user}
                 // URL_usuarios={URL}
                 // getApi_users={getApi}
-              />
-            ))}
-          </tbody>
-        </Table>
-        :
-        <div className="no-products-found d-flex align-items-center justify-content-center">
-          <h1>🍕 No se encontraron usuarios 🍕</h1>
+                />
+              ))}
+            </tbody>
+          </Table>
+          :
+          <div className="no-products-found d-flex align-items-center justify-content-center">
+            <h1>🍕 No se encontraron usuarios 🍕</h1>
           </div>
         }
       </Container>

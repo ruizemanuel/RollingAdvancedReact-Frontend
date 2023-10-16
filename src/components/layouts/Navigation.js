@@ -4,7 +4,6 @@ import { Button, Container, NavDropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./LogoRolling.png"
 import "./navbar.css"
-import SearchBar from "./SearchBar";
 
 
 const Navigation = ({ loggedUser, setLoggedUser, products }) => {
@@ -45,11 +44,6 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto color-nav">
-
-              <div className="mx-5 d-lg-flex flex-lg-column justify-content-lg-center d-sm-flex justify-content-sm-center d-flex justify-content-center">
-                <SearchBar placeholder="Buscar..." data={products} />
-              </div>
-
 
               <Link className="nav-link d-flex flex-column justify-content-center" to="/">
                 Inicio

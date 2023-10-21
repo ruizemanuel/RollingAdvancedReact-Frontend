@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import {
   validateProductName,
   validatePrice,
+  validateStock,
   validateDescription,
   validateUrl,
   validateCategory,
@@ -44,7 +45,11 @@ const ProductCreate = () => {
     } else if (validatePrice(inputs.price) !== 'ok') {
       Swal.fire("Error!", `${validatePrice(inputs.price)}`, "error");
       return;
-    } else if (validateDescription(inputs.description) !== 'ok') {
+    } else if (validateStock(inputs.stock) !== 'ok') {
+      Swal.fire("Error!", `${validateStock(inputs.stock)}`, "error");
+      return;
+    }
+    else if (validateDescription(inputs.description) !== 'ok') {
       Swal.fire("Error!", `${validateDescription(inputs.description)}`, "error");
       return;
     } else if (validateUrl(inputs.urlImg) !== 'ok') {
@@ -62,6 +67,7 @@ const ProductCreate = () => {
     const newProduct = {
       productName: inputs.productName,
       price: inputs.price,
+      stock: inputs.stock,
       description: inputs.description,
       urlImg: inputs.urlImg,
       category: inputs.category,
@@ -118,6 +124,18 @@ const ProductCreate = () => {
               onChange={(e) => handleChange(e)}
               required
               maxLength={6}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Stock*</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Ej: 500"
+              name="stock"
+              value={inputs.stock || ""}
+              onChange={(e) => handleChange(e)}
+              required
+              maxLength={5}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicDescription">

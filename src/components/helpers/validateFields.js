@@ -29,6 +29,19 @@ export const validatePrice = (field) => {
   }
 };
 
+export const validateStock = (field) => {
+  if (
+    regExpPrice.test(field) &&
+    field.trim() !== "" &&
+    field.trim() > 0 &&
+    field.trim() < 10000
+  ) {
+    return 'ok';
+  } else {
+    return 'El stock solo puede contener numeros menores a 10000';
+  }
+};
+
 export const validateDescription = (field) => {
   if (regExpDescription.test(field) && field.trim() !== "") {
     return 'ok';

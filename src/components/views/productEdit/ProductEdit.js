@@ -7,6 +7,7 @@ import {
   validateDescription,
   validatePrice,
   validateProductName,
+  validateStock,
   validateUrl,
 } from "../../helpers/validateFields";
 import axios from "../../../config/axiosInit"
@@ -25,6 +26,7 @@ const ProductEdit = ({ URL, getApi }) => {
   //References
   const productNameRef = useRef('');
   const priceRef = useRef('');
+  const stockRef = useRef('');
   const descriptionRef = useRef('');
   const urlImgRef = useRef('');
   //Navigate
@@ -32,7 +34,7 @@ const ProductEdit = ({ URL, getApi }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!product){
+    if (!product) {
       return navigate('/products');
     }
   }, [product])
@@ -44,16 +46,20 @@ const ProductEdit = ({ URL, getApi }) => {
     if (validateProductName(productNameRef.current.value) !== 'ok') {
       Swal.fire("Error!", `${validateProductName(productNameRef.current.value)}`, "error");
       return;
-    } else if(validatePrice(priceRef.current.value) !== 'ok'){
+    } else if (validatePrice(priceRef.current.value) !== 'ok') {
       Swal.fire("Error!", `${validatePrice(priceRef.current.value)}`, "error");
       return;
-    } else if(validateDescription(descriptionRef.current.value) !== 'ok'){
+    } else if (validateStock(stockRef.current.value) !== 'ok') {
+      Swal.fire("Error!", `${validateStock(stockRef.current.value)}`, "error");
+      return;
+    }
+    else if (validateDescription(descriptionRef.current.value) !== 'ok') {
       Swal.fire("Error!", `${validateDescription(descriptionRef.current.value)}`, "error");
       return;
-    } else if(validateUrl(urlImgRef.current.value)  !== 'ok'){
-      Swal.fire("Error!", `${validateUrl(urlImgRef.current.value) }`, "error");
+    } else if (validateUrl(urlImgRef.current.value) !== 'ok') {
+      Swal.fire("Error!", `${validateUrl(urlImgRef.current.value)}`, "error");
       return;
-    } else if(validateCategory(product.category) !== 'ok'){
+    } else if (validateCategory(product.category) !== 'ok') {
       Swal.fire("Error!", `${validateCategory(product.category)}`, "error");
       return;
     }
@@ -62,6 +68,7 @@ const ProductEdit = ({ URL, getApi }) => {
     const productUpdated = {
       productName: productNameRef.current.value,
       price: priceRef.current.value,
+      stock: stockRef.current.value,
       description: descriptionRef.current.value,
       urlImg: urlImgRef.current.value,
       category: localCategory,
@@ -112,6 +119,17 @@ const ProductEdit = ({ URL, getApi }) => {
               ref={priceRef}
               required
               maxLength={6}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Stock*</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Ej: 500"
+              defaultValue={product?.stock}
+              ref={stockRef}
+              required
+              maxLength={5}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicDescription">
@@ -165,13 +183,13 @@ const ProductEdit = ({ URL, getApi }) => {
           ) : (
 
             <div className="text-end">
-            <button className="btn-primary text-light">Actualizar</button>
-          </div>
+              <button className="btn-primary text-light">Actualizar</button>
+            </div>
 
           )}
 
 
-          
+
         </Form>
         {show && (
           <Alert

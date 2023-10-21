@@ -52,6 +52,7 @@ const ProductsTable = () => {
                 <tr>
                   <th>Nombre</th>
                   <th>Precio</th>
+                  <th>Stock</th>
                   <th>URL de la imagen</th>
                   <th>Categoría</th>
                   <th className="product-description">Descripción</th>

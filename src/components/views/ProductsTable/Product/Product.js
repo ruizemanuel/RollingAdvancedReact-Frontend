@@ -41,6 +41,7 @@ const Product = ({ product, URL, getApi, getSpinner }) => {
       <tr>
         <td>{product.productName}</td>
         <td>${product.price}</td>
+        <td>{product.stock}</td>
         <td>
           <p className="truncate-img-link m-0">{product.urlImg}</p>
         </td>

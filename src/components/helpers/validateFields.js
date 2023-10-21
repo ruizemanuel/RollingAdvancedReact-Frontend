@@ -33,7 +33,7 @@ export const validateStock = (field) => {
   if (
     regExpPrice.test(field) &&
     field.trim() !== "" &&
-    field.trim() > 0 &&
+    field.trim() >= 0 &&
     field.trim() < 10000
   ) {
     return 'ok';

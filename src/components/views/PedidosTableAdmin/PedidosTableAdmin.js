@@ -12,7 +12,7 @@ const PedidosTableAdmin = () => {
     <div>
       <Container className="py-5 pedidosContainerAdm">
         <div className="d-flex align-items-center justify-content-between">
-          <h1>Administrar pedidos</h1>
+          <h1>Pedidos</h1>
 
         </div>
         <hr />
@@ -21,8 +21,12 @@ const PedidosTableAdmin = () => {
           <Table bordered hover responsive className="align-middle mt-3">
             <thead>
               <tr>
-                <th>Email</th>
+                <th>Cliente</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Fecha</th>
                 <th>Estado</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>

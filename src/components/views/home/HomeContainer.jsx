@@ -8,7 +8,7 @@ export default function HomeContainer() {
     const { loading, data } = useSelector(state => state.app);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getData('/products'))
+        dispatch(getData('/pedidos'))
     }, [])
     return (
         <>

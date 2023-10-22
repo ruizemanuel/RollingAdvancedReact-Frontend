@@ -39,7 +39,15 @@ function App() {
         <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} products={products} />
         <main>
           <Routes>
-            <Route exact path="/" element={<HomeContainer />} />
+          <Route
+              exact
+              path="/"
+              element={
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <HomeContainer />
+                </ProtectedRoute>
+              }
+            />
             <Route
               exact
               path="/products"
@@ -103,16 +111,6 @@ function App() {
 
             <Route
               exact
-              path="/pedidos"
-              element={
-                <ProtectedRoute loggedUser={loggedUser}>
-                  <PedidosContainer />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              exact
               path="/pedido/edit/:id"
               element={
                 <ProtectedRoute loggedUser={loggedUser}>
@@ -120,7 +118,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
 
             <Route
               exact

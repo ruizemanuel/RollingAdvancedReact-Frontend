@@ -58,9 +58,6 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                     <Link className="dropdown-item" to="/users">
                       Usuarios
                     </Link>
-                    <Link className="dropdown-item" to="/pedidos">
-                      Pedidos
-                    </Link>
                   </NavDropdown>
 
                   ) : (
@@ -69,10 +66,6 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                   }
 
                   <>
-                    <Link className="nav-link d-flex flex-column justify-content-center" to="/pedidos">
-                      Pedidos
-                    </Link>
-
                     <div className="d-flex flex-column justify-content-center">
                       <Button variant="dark" onClick={logout}>
                         Cerrar sesión
@@ -80,8 +73,6 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                     </div>
 
                   </>
-
-
 
                 </>
               ) : (

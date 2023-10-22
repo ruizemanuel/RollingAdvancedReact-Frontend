@@ -7,46 +7,9 @@ import CarouselHome from "./carouselHome/CarouselHome";
 import ContactUs from "./ContactUs.js/ContactUs";
 import { useSelector } from "react-redux";
 import BarsChart from "../../charts/BarsChart";
+import PedidosTableAdmin from "../PedidosTableAdmin/PedidosTableAdmin";
 
 const Home = () => {
-  const { data: products } = useSelector(state => state.app);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
-
-
-  const filteredProducts = selectedCategory === "Todas"
-    ? products
-    : products.filter(product => product.category === selectedCategory);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
-
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredProducts.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  const handleClick = (event) => {
-    event.preventDefault()
-    setCurrentPage(Number(event.target.id));
-  };
-
-  const renderPageNumbers = pageNumbers.map((number) => {
-    return (
-      <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-        <a href="/" className="page-link" id={number} onClick={handleClick}>
-          {number}
-        </a>
-      </li>
-    );
-  });
-
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1); // Reestablece a la pag 1 cuando cambia de categoria
-  };
 
   return (
     <div>
@@ -58,6 +21,7 @@ const Home = () => {
         </div>
       </div>
         <hr />
+        <PedidosTableAdmin />
       </Container>
     </div>
   );

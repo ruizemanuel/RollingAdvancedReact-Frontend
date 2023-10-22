@@ -58,7 +58,7 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                     <Link className="dropdown-item" to="/users">
                       Usuarios
                     </Link>
-                    <Link className="dropdown-item" to="/pedidos/table">
+                    <Link className="dropdown-item" to="/pedidos">
                       Pedidos
                     </Link>
                   </NavDropdown>

@@ -2,33 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import PedidoAdmin from "./PedidoAdmin/PedidoAdmin";
 import axios from "../../../config/axiosInit"
+import { useSelector } from "react-redux";
 
 const PedidosTableAdmin = () => {
 
-  const [pedidos, setPedidos] = useState([]);
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_PEDIDOS
-
-
-useEffect(() => {
-  getApi()
-  
-}, []);
-
-
-const getApi = async () => {
-
-try {
-
-  //la peticion con Axios
-  const res = await axios.get(URL);
-  const pedidoApi = res.data;
-  setPedidos(pedidoApi)
-
-} catch (error) {
-  console.log(error);
-}
-
-};
+  const { data: pedidos } = useSelector(state => state.app);
 
   return (
     <div>
@@ -52,8 +30,6 @@ try {
                 <PedidoAdmin
                   key={pedido._id}
                   pedido={pedido}
-                  URL={URL}
-                  getApi={getApi}
                 />
               ))}
             </tbody>

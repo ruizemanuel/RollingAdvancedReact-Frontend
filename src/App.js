@@ -24,6 +24,7 @@ import CreditCardValidator from "./components/views/creditCardValidator/creditCa
 import HomeContainer from "./components/views/home/HomeContainer";
 import ProductsContainer from "./components/views/ProductsTable/ProductsContainer";
 import UsersContainer from "./components/views/UsersTable/UsersContainer";
+import PedidosContainer from "./components/views/PedidosTableAdmin/PedidosContainer";
 
 
 function App() {
@@ -38,14 +39,14 @@ function App() {
         <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} products={products} />
         <main>
           <Routes>
-            <Route exact path="/" element={<HomeContainer />}/>
+            <Route exact path="/" element={<HomeContainer />} />
             <Route
               exact
               path="/products"
               element={
-                  <ProtectedRoute loggedUser={loggedUser}>
-                    <ProductsContainer />
-                  </ProtectedRoute>
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <ProductsContainer />
+                </ProtectedRoute>
               }
             />
 
@@ -53,9 +54,9 @@ function App() {
               exact
               path="/product/create"
               element={
-                  <ProtectedRoute loggedUser={loggedUser}>
-                    <ProductCreate />
-                  </ProtectedRoute>
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <ProductCreate />
+                </ProtectedRoute>
               }
             />
 
@@ -63,9 +64,9 @@ function App() {
               exact
               path="/product/edit/:id"
               element={
-                  <ProtectedRoute loggedUser={loggedUser}>
-                    <ProductEdit />
-                  </ProtectedRoute>
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <ProductEdit />
+                </ProtectedRoute>
               }
             />
 
@@ -73,9 +74,9 @@ function App() {
               exact
               path="/users"
               element={
-                  <ProtectedRoute loggedUser={loggedUser}>
-                    <UsersContainer />
-                  </ProtectedRoute>
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <UsersContainer />
+                </ProtectedRoute>
               }
             />
 
@@ -102,10 +103,10 @@ function App() {
 
             <Route
               exact
-              path="/pedidos/table"
+              path="/pedidos"
               element={
                 <ProtectedRoute loggedUser={loggedUser}>
-                  <PedidosTableAdmin />
+                  <PedidosContainer />
                 </ProtectedRoute>
               }
             />
@@ -125,11 +126,6 @@ function App() {
               exact
               path="/product/buy/:id"
               element={<ProductDetails URL={URL} />}
-            />
-            <Route
-              exact
-              path="/pedidos"
-              element={<PedidosTable />}
             />
             <Route
               exact

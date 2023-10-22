@@ -4,43 +4,38 @@ import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import axios from "../../../config/axiosInit"
+import { useDispatch, useSelector } from "react-redux";
+import { updateData } from "../../../share/domain/services/appServices";
 
 const PedidoAdminEdit = () => {
-  //State
 
   const [isChecked, setIsChecked] = useState(false);
   const [spinner, setSpinnner] = useState(false);
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_PEDIDOS
+  const { dataToEdit: pedido } = useSelector(state => state.app);
 
-
-
-  //Param
   const { id } = useParams();
 
-  //Navigate
   const navigate = useNavigate();
-
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getOne();
+    if (!pedido) {
+      return navigate('/pedidos');
+    }
+  }, [pedido])
+
+  useEffect(() => {
+    initPedido();
   }, []);
 
-  const getOne = async () => {
+  const initPedido = async () => {
     try {
       
-
-      //la peticion con Axios
-      const res = await axios.get(`${URL}/${id}`);
-      const pedidoApi = res.data;
-      if (pedidoApi.estado === 'Pendiente') {
+      if (pedido.estado === 'Pendiente') {
         setIsChecked(false)
       } else {
         setIsChecked(true)
       }
-
-
-
     } catch (error) {
       console.log(error);
     }
@@ -68,21 +63,11 @@ const PedidoAdminEdit = () => {
       confirmButtonText: "Modificar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        try {
-          setSpinnner(true)
- 
-          const res = await axios.put(`${URL}/${id}`, pedidoUpdated);
-
-          if (res.status === 200) {
-            Swal.fire("Excelente!", "Pedido actualizado.", "success");
-            navigate("/pedidos/table");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-        finally {
+        setSpinnner(true)
+        dispatch(updateData('/pedidos', pedidoUpdated, id)).then(() => {
           setSpinnner(false)
-        }
+          navigate('/pedidos');
+        })
       }
     });
   };

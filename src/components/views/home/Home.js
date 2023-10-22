@@ -6,6 +6,7 @@ import Testimonials from "./Testimonials/Testimonial";
 import CarouselHome from "./carouselHome/CarouselHome";
 import ContactUs from "./ContactUs.js/ContactUs";
 import { useSelector } from "react-redux";
+import BarsChart from "../../charts/BarsChart";
 
 const Home = () => {
   const { data: products } = useSelector(state => state.app);
@@ -49,100 +50,15 @@ const Home = () => {
 
   return (
     <div>
-      <CarouselHome />
-      <AboutUs />
-
       <Container className="py-5 ">
-        <h1 className="display-3 text-center">Nuestro <span>Menu</span></h1>
+        <h1 className="display-4 text-center">Estadisticas <span>de venta</span></h1>
+        <div>
+        <div className="bg-light mx-auto px-2 border border-1 border-dark" style={{ width: "75%", height: "50%" }}>
+          <BarsChart />
+        </div>
+      </div>
         <hr />
-        <Dropdown>
-          <Dropdown.Toggle id="dropdowCategories">
-            {selectedCategory.toUpperCase()}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item className={` ${selectedCategory === "Todas" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("Todas")}>
-              Todas
-            </Dropdown.Item>
-            <Dropdown.Item className={` ${selectedCategory === "bebidas" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("bebidas")} >
-              Bebidas
-            </Dropdown.Item>
-            <Dropdown.Item className={` ${selectedCategory === "pizza" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("pizza")}>
-              Pizzas
-            </Dropdown.Item>
-            <Dropdown.Item className={` ${selectedCategory === "hamburguesa" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("hamburguesa")}>
-              Hamburguesas
-            </Dropdown.Item>
-            <Dropdown.Item className={` ${selectedCategory === "taco" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("taco")}>
-              Tacos
-            </Dropdown.Item>
-            <Dropdown.Item className={` ${selectedCategory === "veganas" ? 'active' : ''}`}
-              onClick={() => handleCategoryChange("veganas")}>
-              Veganas
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-
-
-
-        {currentItems?.length !== 0 ? (
-          <Row>
-            <ul className="pagination justify-content-center">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
-                <a
-                  href="/"
-                  className="page-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(currentPage - 1);
-                  }}
-                >
-                  Previous
-                </a>
-              </li>
-              {renderPageNumbers}
-              <li
-                className={`page-item ${currentPage === Math.ceil(products.length / itemsPerPage)
-                  ? "disabled"
-                  : ""
-                  }`}
-              >
-                <a
-                  href="/"
-                  className="page-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(currentPage + 1);
-                  }}
-                >
-                  Next
-                </a>
-              </li>
-            </ul>
-            {currentItems?.map((product, index) => (
-              <Col key={index} sm={4} xl={3} lg={4} md={6}>
-                <CardProduct product={product} />
-              </Col>
-            ))}
-          </Row>
-        ) : (
-          <div className="no-products-found d-flex align-items-center justify-content-center">
-            <h1>🍕 No hay productos disponibles 🍕</h1>
-          </div>
-        )}
       </Container>
-
-
-
-      <Testimonials />
-      <ContactUs />
     </div>
   );
 };

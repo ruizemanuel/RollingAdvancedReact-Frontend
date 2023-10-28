@@ -3,6 +3,7 @@ import { Container, Table } from "react-bootstrap";
 import PedidoAdmin from "./PedidoAdmin/PedidoAdmin";
 import axios from "../../../config/axiosInit"
 import { useSelector } from "react-redux";
+import CustomDatePicker from "../../DatePicker";
 
 const PedidosTableAdmin = () => {
 
@@ -13,7 +14,7 @@ const PedidosTableAdmin = () => {
       <Container className="py-5 pedidosContainerAdm">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Pedidos</h1>
-
+          <CustomDatePicker/>
         </div>
         <hr />
         {/* Table of products */}

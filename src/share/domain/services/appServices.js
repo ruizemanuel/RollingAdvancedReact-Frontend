@@ -1,5 +1,5 @@
-import { loading, success, error, loadingModal } from "../../data/redux/appSlice"
-import { createNewDataRepo, deleteItemRepo, getDataByIdRepo, getDataRepo, getTotalByDateRepo, updateDataRepo } from "../../data/repositories"
+import { loading, success, error, loadingModal, successSales, successSalesPerCategory } from "../../data/redux/appSlice"
+import { createNewDataRepo, deleteItemRepo, getDataByIdRepo, getDataRepo, getSalesPerCategoryRepo, getSalesPerMonthRepo, getTotalByDateRepo, updateDataRepo } from "../../data/repositories"
 
 
 export const getData = (path) => async (dispatch) => {
@@ -20,6 +20,24 @@ export const getDataToEdit = (path, id) => async (dispatch, getState) => {
     try {
         const dataToEdit = await getDataByIdRepo(path, id)
         dispatch(success({ data, dataToEdit }))
+    } catch (e) {
+        dispatch(error())
+    }
+}
+
+export const getSalesPerMonth = () => async (dispatch) => {
+    try {
+        const sales = await getSalesPerMonthRepo()
+        dispatch(successSales({ sales }))
+    } catch (e) {
+        dispatch(error())
+    }
+}
+
+export const getSalesPerCategory = () => async (dispatch) => {
+    try {
+        const salesPerCategory = await getSalesPerCategoryRepo()
+        dispatch(successSalesPerCategory({ salesPerCategory }))
     } catch (e) {
         dispatch(error())
     }

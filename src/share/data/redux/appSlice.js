@@ -9,6 +9,8 @@ export const appSlice = createSlice({
     loading: false,
     loadingMod: false,
     data: null,
+    sales: null,
+    salesPerCategory: null,
     dataToEdit: null,
     total: 0,
   },
@@ -35,12 +37,13 @@ export const appSlice = createSlice({
         state.message = payload?.message || 'Ocurrio un error'
         state.status = "error"
         state.data = payload?.data || null
+        state.sales = payload?.sales || null
+        state.salesPerCategory = payload?.salesPerCategory || null
         state.dataToEdit = null
         state.total = 0
     },
 
     success: (state, { payload }) => {
-      console.log('hola en slice', payload)
         state.loading = false
         state.message = payload.message || null
         state.status = "success"
@@ -49,6 +52,14 @@ export const appSlice = createSlice({
         state.loadingMod = false
         state.total = payload.total || 0
     },
+
+    successSales: (state, { payload }) => {
+        state.sales = payload.sales || null
+    },
+    successSalesPerCategory: (state, { payload }) => {
+      state.salesPerCategory = payload.salesPerCategory || null
+  },
+
   },
 })
 
@@ -57,6 +68,8 @@ export const {
   loading,
   error,
   success,
+  successSales,
+  successSalesPerCategory,
   flushEdit,
   
 } = appSlice.actions

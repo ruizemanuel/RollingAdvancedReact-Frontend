@@ -23,6 +23,24 @@ export const getDataByIdRepo = async (path, id) => {
     }
 }
 
+export const getSalesPerMonthRepo = async () => {
+    try {
+        const { data } = await axios.get('/pedidos/ventas')
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const getSalesPerCategoryRepo = async () => {
+    try {
+        const { data } = await axios.get('/pedidos/ventasPorCategoria')
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
 export const createNewDataRepo = async (path, formValues) => {
     try {
         const { data } = await axios.post(`${path}`, formValues, config());

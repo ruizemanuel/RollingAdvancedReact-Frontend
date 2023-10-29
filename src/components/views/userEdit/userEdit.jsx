@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,52 +7,74 @@ import axios from "../../../config/axiosInit"
 import { useDispatch, useSelector } from "react-redux";
 import { updateData } from "../../../share/domain/services/appServices";
 
-const PedidoAdminEdit = () => {
+const UserEdit = () => {
 
-  const [isChecked, setIsChecked] = useState(false);
+  //State
+  //const [user, setUser] = useState(false);
+  const [userAdmin, setUserAdmin] = useState(false);
   const [spinner, setSpinnner] = useState(false);
-  const { dataToEdit: pedido } = useSelector(state => state.app);
+  const [isChecked, setIsChecked] = useState(false);
+  const { dataToEdit: userApi } = useSelector(state => state.app);
+  const dispatch = useDispatch();
+  //References
+  let rolesRef = [];
 
+  //Param
   const { id } = useParams();
 
+  //Navigate
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!pedido) {
-      return navigate('/pedidos');
+    if(!userApi){
+      return navigate('/users');
     }
-  }, [pedido])
+  }, [userApi])
 
   useEffect(() => {
-    initPedido();
+    setCheckboxes();
   }, []);
 
-  const initPedido = async () => {
+  const setCheckboxes = async () => {
     try {
-      
-      if (pedido.estado === 'Pendiente') {
-        setIsChecked(false)
-      } else {
-        setIsChecked(true)
-      }
+
+      //la peticion con Axios
+      userApi.roles.includes('admin') && setUserAdmin(true);
+      setIsChecked(userApi.activo)
+      rolesRef = userApi.roles
+
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const handleChange = (event) => {
     setIsChecked(event.target.checked);
 
   };
 
+  const handleChangeAdmin = (event) => {
+    setUserAdmin(event.target.checked)
+  };
+
+
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
+
+    if (userAdmin) {
+      rolesRef = ["user", "admin"]
+    } else {
+      rolesRef = ["user"]
+    }
+
     //guardar el objeto
-    const pedidoUpdated = {
-      estado: isChecked ? "Realizado" : "Pendiente",
+    const userUpdated = {
+      activo: isChecked,
+      roles: rolesRef,
     };
 
     Swal.fire({
@@ -63,11 +85,17 @@ const PedidoAdminEdit = () => {
       confirmButtonText: "Modificar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setSpinnner(true)
-        dispatch(updateData('/pedidos', pedidoUpdated, id)).then(() => {
+        try {
+          setSpinnner(true)
+          dispatch(updateData('/users', userUpdated, id)).then(() => {
+            navigate('/users');
+          })
+        } catch (error) {
+          console.log(error);
+        }
+        finally {
           setSpinnner(false)
-          navigate('/pedidos');
-        })
+        }
       }
     });
   };
@@ -75,7 +103,7 @@ const PedidoAdminEdit = () => {
   return (
     <div>
       <Container className="py-5">
-        <h1>Modificar Pedido</h1>
+        <h1>Modificar usuario</h1>
         <hr />
         {/* Form Product */}
         <Form
@@ -93,17 +121,40 @@ const PedidoAdminEdit = () => {
                 onChange={(e) => handleChange(e)} id="defaultCheck1" />
               {isChecked ? (
                 <label className="form-check-label" htmlFor="defaultCheck1">
-                  Realizado
+                  Activo
                 </label>)
                 : (
                   <label className="form-check-label" htmlFor="defaultCheck1">
-                    Pendiente
+                    Inactivo
                   </label>
                 )}
             </div>
 
           </div>
 
+          <div className="d-flex text-center">
+
+
+            <div className="me-4">
+              Es Admin
+            </div>
+
+
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox" checked={userAdmin}
+                onChange={(e) => handleChangeAdmin(e)} id="defaultCheck2" />
+              {userAdmin ? (
+                <label className="form-check-label" htmlFor="defaultCheck2">
+                  Es admin
+                </label>)
+                : (
+                  <label className="form-check-label" htmlFor="defaultCheck2">
+                    No es admin
+                  </label>
+                )}
+            </div>
+
+          </div>
 
 
           {spinner ? (
@@ -122,10 +173,11 @@ const PedidoAdminEdit = () => {
             </div>
 
           )}
+
         </Form>
       </Container>
     </div>
   );
 };
 
-export default PedidoAdminEdit;
+export default UserEdit;

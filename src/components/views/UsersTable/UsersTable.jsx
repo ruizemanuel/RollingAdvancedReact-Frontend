@@ -10,7 +10,6 @@ import SearchBar from "../../layouts/SearchBar";
 const UsersTable = () => {
 
   //const [users, setUsers] = useState([]);
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USERS;
   const dispatch = useDispatch();
   const { data: users } = useSelector(state => state.app);
   const [filteredUsers, setFilteredUsers] = useState(users);

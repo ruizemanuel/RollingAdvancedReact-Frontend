@@ -13,7 +13,6 @@ import { createNewData } from "../../../share/domain/services/appServices";
 
 const UserCreate = () => {
 
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USUARIO
 
   //One general state
   const [inputs, setInputs] = useState({});

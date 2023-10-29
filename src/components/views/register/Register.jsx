@@ -17,7 +17,7 @@ const Register = () => {
   const [spinner, setSpinnner] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const URL = process.env.REACT_APP_API_RESTAURANTE
+  const URL = import.meta.env.VITE_REACT_APP_API_RESTAURANTE;
 
 
   const handleChange = (event) => {

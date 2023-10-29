@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./components/views/home/Home";
 import Navigation from "./components/layouts/Navigation";
 import Footer from "./components/layouts/Footer";
-import ProductsTable from "./components/views/ProductsTable/ProductsTable";
 import ProductCreate from "./components/views/productCreate/ProductCreate";
 import ProductEdit from "./components/views/productEdit/ProductEdit";
 import Error404 from "./components/views/error404/Error404";
 import Login from "./components/views/login/Login";
 import Register from "./components/views/register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "./config/axiosInit";
-import ProductDetails from "./components/views/productDetails/ProductDetails";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import UsersTable from "./components/views/UsersTable/UsersTable";
 import UserCreate from "./components/views/userCreate/userCreate";
 import UserEdit from "./components/views/userEdit/userEdit";
-import PedidosTable from "./components/views/PedidosTable/PedidosTable";
-import PedidosTableAdmin from "./components/views/PedidosTableAdmin/PedidosTableAdmin";
 import PedidoAdminEdit from "./components/views/PedidoAdminEdit/PedidoAdminEdit";
-import CreditCardValidator from "./components/views/creditCardValidator/creditCardValidator";
 import HomeContainer from "./components/views/home/HomeContainer";
 import ProductsContainer from "./components/views/ProductsTable/ProductsContainer";
 import UsersContainer from "./components/views/UsersTable/UsersContainer";
-import PedidosContainer from "./components/views/PedidosTableAdmin/PedidosContainer";
-import ProductsHistory from "./components/views/ProductsHistory/ProductsHistory";
 import ProductsHistoryContainer from "./components/views/ProductsHistory/ProductsHistoryContainer";
 
 
@@ -33,7 +23,6 @@ function App() {
   const [products, setProducts] = useState([]);
   const [spinner, setSpinnner] = useState(false);
   const [loggedUser, setLoggedUser] = useState(localStorage.getItem('user-token') ? JSON.parse(localStorage.getItem("user-token")) : {});
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA;
 
   return (
     <div>
@@ -129,17 +118,6 @@ function App() {
                   <PedidoAdminEdit />
                 </ProtectedRoute>
               }
-            />
-
-            <Route
-              exact
-              path="/product/buy/:id"
-              element={<ProductDetails URL={URL} />}
-            />
-            <Route
-              exact
-              path="/pedidos/tarjeta/:id"
-              element={<CreditCardValidator />}
             />
             <Route
               exact

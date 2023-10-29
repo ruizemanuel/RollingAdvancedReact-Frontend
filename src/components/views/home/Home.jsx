@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import { Col, Container, Row, Dropdown } from "react-bootstrap";
-import CardProduct from "./cardProduct/CardProduct";
-import AboutUs from "./AboutUs/AboutUs";
-import Testimonials from "./Testimonials/Testimonial";
-import CarouselHome from "./carouselHome/CarouselHome";
-import ContactUs from "./ContactUs.js/ContactUs";
-import { useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
 import BarsChart from "../../charts/BarsChart";
 import PedidosTableAdmin from "../PedidosTableAdmin/PedidosTableAdmin";
 

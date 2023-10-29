@@ -25,6 +25,8 @@ import HomeContainer from "./components/views/home/HomeContainer";
 import ProductsContainer from "./components/views/ProductsTable/ProductsContainer";
 import UsersContainer from "./components/views/UsersTable/UsersContainer";
 import PedidosContainer from "./components/views/PedidosTableAdmin/PedidosContainer";
+import ProductsHistory from "./components/views/ProductsHistory/ProductsHistory";
+import ProductsHistoryContainer from "./components/views/ProductsHistory/ProductsHistoryContainer";
 
 
 function App() {
@@ -39,7 +41,7 @@ function App() {
         <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} products={products} />
         <main>
           <Routes>
-          <Route
+            <Route
               exact
               path="/"
               element={
@@ -74,6 +76,16 @@ function App() {
               element={
                 <ProtectedRoute loggedUser={loggedUser}>
                   <ProductEdit />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              exact
+              path="/product/history"
+              element={
+                <ProtectedRoute loggedUser={loggedUser}>
+                  <ProductsHistoryContainer />
                 </ProtectedRoute>
               }
             />

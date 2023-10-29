@@ -1,5 +1,5 @@
 import { loading, success, error, loadingModal, successSales, successSalesPerCategory } from "../../data/redux/appSlice"
-import { createNewDataRepo, deleteItemRepo, getDataByIdRepo, getDataRepo, getSalesPerCategoryRepo, getSalesPerMonthRepo, getTotalByDateRepo, updateDataRepo } from "../../data/repositories"
+import { createNewDataRepo, deleteItemRepo, getDataByIdRepo, getDataRepo, getProductsHistoryRepo, getSalesPerCategoryRepo, getSalesPerMonthRepo, getTotalByDateRepo, updateDataRepo } from "../../data/repositories"
 
 
 export const getData = (path) => async (dispatch) => {
@@ -40,6 +40,17 @@ export const getSalesPerCategory = () => async (dispatch) => {
         dispatch(successSalesPerCategory({ salesPerCategory }))
     } catch (e) {
         dispatch(error())
+    }
+}
+
+export const getProductsHistory = () => async (dispatch) => {
+    dispatch(loading())
+    try {
+        const data = await getProductsHistoryRepo()
+        dispatch(success({ data }))
+    } catch (e) {
+        const { message } = e.response.data
+        dispatch(error({ message: message || 'Ocurrio un error' }))
     }
 }
 

@@ -31,7 +31,7 @@ const ProductsTable = () => {
     if (inputs.min || inputs.max) {
       const minPrice = inputs.min ? parseInt(inputs.min) : 0;
       const maxPrice = inputs.max ? parseInt(inputs.max) : Infinity;
-      const filtered = products.filter(product =>(product.price >= minPrice) && (product.price <= maxPrice));
+      const filtered = products.filter(product => (product.price >= minPrice) && (product.price <= maxPrice));
       setFilteredProducts(filtered.sort((a, b) => a.price - b.price));
       setFilter(true)
     }
@@ -66,18 +66,31 @@ const ProductsTable = () => {
           <h1>Administrar Menú</h1>
 
           {loading ? (
-
-            <div className="btn-primary text-decoration-none text-center text-light">
-              Agregar un Menú
+            <div>
+              <div className="btn-primary text-decoration-none text-center text-light me-4">
+                Historial
+              </div>
+              <div className="btn-primary text-decoration-none text-center text-light">
+                Agregar un Menú
+              </div>
             </div>
 
           ) : (
-            <Link
-              to="/product/create"
-              className="btn-primary text-decoration-none text-center text-light"
-            >
-              Agregar un Menú
-            </Link>
+            <div>
+              <Link
+                to="/product/history"
+                className="btn-primary text-decoration-none text-center text-light me-4"
+              >
+                Historial
+              </Link>
+              <Link
+                to="/product/create"
+                className="btn-primary text-decoration-none text-center text-light"
+              >
+                Agregar un Menú
+              </Link>
+
+            </div>
 
           )}
         </div>

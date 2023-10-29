@@ -41,6 +41,15 @@ export const getSalesPerCategoryRepo = async () => {
     }
 }
 
+export const getProductsHistoryRepo = async () => {
+    try {
+        const { data } = await axios.get('/products/logs')
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
 export const createNewDataRepo = async (path, formValues) => {
     try {
         const { data } = await axios.post(`${path}`, formValues, config());

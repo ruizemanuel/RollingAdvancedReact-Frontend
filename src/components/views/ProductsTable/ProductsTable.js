@@ -5,21 +5,20 @@ import Product from "./Product/Product";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faClose } from "@fortawesome/free-solid-svg-icons";
+import useProductFilters from "../../../share/data/hooks/useProductFilters";
 
 const ProductsTable = () => {
 
   const { loading, data: products } = useSelector(state => state.app);
-  const [filteredProducts, setFilteredProducts] = useState(products);
-  const [filter, setFilter] = useState(false)
   const [inputs, setInputs] = useState({});
-
-
-  const handleChange = (searchTerm) => {
-    console.log(searchTerm.target.value);
-    const filtered = products.filter(product => product.category === searchTerm.target.value);
-    setFilteredProducts(filtered);
-    setFilter(true)
-  };
+  const {
+    filteredProducts,
+    filter,
+    filterByCategory,
+    filterByPrice,
+    filterByStock,
+    restoreFilters,
+  } = useProductFilters(products); 
 
   const handleChangePrice = (event) => {
     const name = event.target.name;
@@ -27,38 +26,13 @@ const ProductsTable = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handlePriceFilter = () => {
-    if (inputs.min || inputs.max) {
-      const minPrice = inputs.min ? parseInt(inputs.min) : 0;
-      const maxPrice = inputs.max ? parseInt(inputs.max) : Infinity;
-      const filtered = products.filter(product => (product.price >= minPrice) && (product.price <= maxPrice));
-      setFilteredProducts(filtered.sort((a, b) => a.price - b.price));
-      setFilter(true)
-    }
-  };
-
-  const handleChangeStock = (e) => {
-    if (e.target.value === 'en-stock') {
-      const filtered = products.filter(product => product.stock > 0);
-      setFilteredProducts(filtered);
-      setFilter(true)
-    } else {
-      const filtered = products.filter(product => product.stock === 0);
-      setFilteredProducts(filtered);
-      setFilter(true)
-    }
-
-  };
-
-  const restoreFilters = () => {
+  const restoreFiltersLocal = () => {
     document.getElementById("categoryFilter").selectedIndex = 0;
     document.getElementById("stockFilter").selectedIndex = 0;
-    setInputs({});
-    setFilteredProducts(products)
-    setFilter(false)
+    setInputs({})
+    restoreFilters();
   }
 
-  console.log('products', products)
   return (
     <div>
       <Container className="py-5 containerTable">
@@ -96,7 +70,7 @@ const ProductsTable = () => {
         </div>
         <hr />
         <div className="d-flex justify-content-between align-items-center">
-          <Form.Select id="categoryFilter" onChange={handleChange} className="w-25">
+          <Form.Select id="categoryFilter" onChange={(e) => filterByCategory(e.target.value)} className="w-25">
             <option disabled selected>Filtrar por Categoría</option>
             <option value="pizza">Pizza</option>
             <option value="hamburguesa">Hamburguesa</option>
@@ -131,7 +105,7 @@ const ProductsTable = () => {
               />
             </Form.Group>
             <FontAwesomeIcon
-              onClick={handlePriceFilter}
+              onClick={() => filterByPrice(inputs.min, inputs.max)}
               style={{ cursor: 'pointer' }}
               icon={faAngleRight}
               size="2x"
@@ -140,14 +114,14 @@ const ProductsTable = () => {
           </div>
 
 
-          <Form.Select id="stockFilter" onChange={handleChangeStock} className="w-25">
+          <Form.Select id="stockFilter" onChange={(e) => filterByStock(e.target.value)} className="w-25">
             <option disabled selected>Filtrar por Stock</option>
             <option value="en-stock">En stock</option>
             <option value="sin-stock">Sin Stock</option>
           </Form.Select>
 
           {filter &&
-            <div style={{ cursor: 'pointer' }} onClick={restoreFilters} className="d-flex align-items-center gap-2">
+            <div style={{ cursor: 'pointer' }} onClick={restoreFiltersLocal} className="d-flex align-items-center gap-2">
               Restaurar Filtros
               <FontAwesomeIcon
                 icon={faClose}

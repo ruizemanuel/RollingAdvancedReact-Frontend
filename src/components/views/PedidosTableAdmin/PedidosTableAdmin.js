@@ -8,17 +8,31 @@ import CustomDatePicker from "../../DatePicker";
 const PedidosTableAdmin = () => {
 
   const { data: pedidos } = useSelector(state => state.app);
+  const [selectedDateRange, setSelectedDateRange] = useState([null, null]);
+
+  const filterPedidosByDate = (pedidos, dateRange) => {
+    
+    if (!dateRange[0] || !dateRange[1]) {
+      return pedidos;
+    }
+    const [startDate, endDate] = dateRange;
+    const filteredPedidos = pedidos.filter((pedido) => {
+      const pedidoDate = new Date(pedido.date);
+      return pedidoDate >= startDate && pedidoDate <= endDate;
+    });
+    return filteredPedidos
+  };
 
   return (
     <div>
       <Container className="py-5 pedidosContainerAdm">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Pedidos</h1>
-          <CustomDatePicker/>
         </div>
         <hr />
+        <CustomDatePicker onDateChange={setSelectedDateRange}/>
         {/* Table of products */}
-        {pedidos?.length !== 0 ?
+        {filterPedidosByDate(pedidos, selectedDateRange).length !== 0 ?
           <Table bordered hover responsive className="align-middle mt-3">
             <thead>
               <tr>
@@ -31,7 +45,7 @@ const PedidosTableAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {pedidos?.map((pedido) => (
+              {filterPedidosByDate(pedidos, selectedDateRange)?.map((pedido) => (
                 <PedidoAdmin
                   key={pedido._id}
                   pedido={pedido}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Container, Form, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "./Product/Product";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faClose } from "@fortawesome/free-solid-svg-icons";
 import useProductFilters from "../../../share/data/hooks/useProductFilters";
@@ -183,3 +183,4 @@ const ProductsTable = () => {
 };
 
 export default ProductsTable;
+

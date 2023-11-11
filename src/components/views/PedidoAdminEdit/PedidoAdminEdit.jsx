@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
-import axios from "../../../config/axiosInit"
 import { useDispatch, useSelector } from "react-redux";
 import { updateData } from "../../../share/domain/services/appServices";
 
@@ -65,7 +63,7 @@ const PedidoAdminEdit = () => {
         setSpinnner(true)
         dispatch(updateData('/pedidos', pedidoUpdated, id)).then(() => {
           setSpinnner(false)
-          navigate('/pedidos');
+          navigate('/');
         })
       }
     });

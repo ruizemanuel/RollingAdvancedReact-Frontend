@@ -4,8 +4,8 @@ import { Navigate } from "react-router-dom";
 
 
 const ProtectedRoute = ({ children }) => {
-   const { status, roles } = useSelector((state) => state.auth);
- if(status === 'no-authenticated' && !roles?.includes('admin')){
+   const { roles } = useSelector((state) => state.auth);
+ if(!roles?.includes('admin')){
     return <Navigate to={"/auth/login"}></Navigate>
  } else{
     return children
@@ -14,14 +14,3 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
-
-
-
-
-
-
-
-
-
-
-

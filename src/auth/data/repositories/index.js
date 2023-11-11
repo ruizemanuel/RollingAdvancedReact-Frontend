@@ -11,7 +11,18 @@ export const loginRepo = async (form) => {
             },
             
         });
-        return data
+        if(data?.roles?.includes('admin')){
+            return data
+        } else {
+            throw {
+                response: {
+                  data: {
+                    message: "No tienes permisos para acceder a este sitio"
+                  }
+                }
+              };
+        }
+
     } catch (error) {
         throw error
     }

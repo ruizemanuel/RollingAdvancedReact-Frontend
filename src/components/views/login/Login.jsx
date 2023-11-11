@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Container, Form, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./login.css"
 import logo from "./Logo.png"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../../auth/domain/services/authServices";
 
 const Login = () => {
+  const { message } = useSelector((state) => state.app);
   const [inputs, setInputs] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(message === 'Bienvenido'){
+      navigate("/");
+    } 
+  },[message])
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -29,13 +36,9 @@ const Login = () => {
 
       setSpinnner(true)
 
-      dispatch(startLogin({ email: inputs.email, password: inputs.password })).then(() => {
-        Swal.fire("Bienvenido!", "Inicio de sesión exitoso.", "success");
-        navigate("/");
-      })
+      dispatch(startLogin({ email: inputs.email, password: inputs.password }));
 
     } catch (error) {
-      console.log(error);
       setError(true);
       error.response.data?.message &&
         setErrorMessage(error.response.data?.message);

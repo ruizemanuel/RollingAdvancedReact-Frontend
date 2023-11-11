@@ -9,7 +9,7 @@ import { startLogout } from "../../auth/domain/services/authServices";
 
 const Navigation = () => {
 
-  const { status, roles } = useSelector((state) => state.auth);
+  const { roles } = useSelector((state) => state.auth);
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto color-nav">
-              {status === 'authenticated' && roles?.includes('admin') ? (
+              {roles?.includes('admin') ? (
                 <>
                     <NavDropdown title="Administrar" id="administrar-dropdown" className="mx-auto mx-lg-0 mb-3 mb-lg-0">
                     <Link className="dropdown-item" to="/products">

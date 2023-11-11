@@ -30,7 +30,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (statusApp !== null && message?.includes("Token")) {
+    if (statusApp !== null && message !== null) {
       toast[statusApp](`${message}`, {
         position: 'bottom-center',
         autoClose: 2500,
@@ -42,9 +42,9 @@ function App() {
         progress: undefined,
         theme: 'colored',
       });
-      dispatch(startLogout()).then(() => {
-        navigate("/auth/login")
-      })
+      if(message?.includes("Token")){
+        dispatch(startLogout());
+      }
     }
   }, [statusApp]);
 

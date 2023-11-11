@@ -80,7 +80,6 @@ export const deleteItem = (path, id) => async (dispatch, getState) => {
         const { message } = await deleteItemRepo(path, id)
         dispatch(success({ message: message, data }))
     } catch (e) {
-        console.log('error', e)
         const { message } = e.response.data
         dispatch(error({ message: message }))
     }

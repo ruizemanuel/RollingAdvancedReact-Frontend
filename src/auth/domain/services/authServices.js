@@ -7,7 +7,7 @@ export const startLogin = (form) => async (dispatch) => {
     try {
       const data = await loginRepo(form);
       dispatch(login(data))
-      dispatch(success({message: "Bienvenido!"}))
+      dispatch(success({message: "Bienvenido"}))
 
     } catch (e) {
       const { message } = e.response.data
@@ -19,7 +19,7 @@ export const startLogout = () => async (dispatch) => {
   await dispatch(loading());
   try {
     await dispatch(logout());
-    dispatch(success({ message: 'Adios!' }));
+    dispatch(success());
   } catch ({ response }) {
     dispatch(error(response.data));
   }

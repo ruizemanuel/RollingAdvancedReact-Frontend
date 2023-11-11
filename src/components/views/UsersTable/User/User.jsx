@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getDataToEdit } from "../../../../share/domain/services/appServices";
 
 
-const User = ({ user, URL_usuarios, getApi_users }) => {
+const User = ({ user }) => {
 
-  const email = JSON.parse(localStorage.getItem("user-token")).email
+  const { email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

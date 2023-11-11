@@ -29,13 +29,9 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto color-nav">
-
-              <Link className="nav-link d-flex flex-column justify-content-center" to="/">
-                Inicio
-              </Link>
               {status === 'authenticated' && roles?.includes('admin') ? (
                 <>
-                    <NavDropdown title="Administrar" id="administrar-dropdown">
+                    <NavDropdown title="Administrar" id="administrar-dropdown" className="mx-auto mx-lg-0 mb-3 mb-lg-0">
                     <Link className="dropdown-item" to="/products">
                       Menu
                     </Link>

@@ -40,26 +40,26 @@ const ProductsTable = () => {
           <h1>Administrar Menú</h1>
 
           {loading ? (
-            <div>
-              <div className="btn-primary text-decoration-none text-center text-light me-4">
+            <div className="d-flex flex-wrap justify-content-end">
+              <div className="delete-btn text-decoration-none text-center text-light mb-2 mb-lg-0">
                 Historial
               </div>
-              <div className="btn-primary text-decoration-none text-center text-light">
+              <div className="delete-btn text-decoration-none text-center text-light">
                 Agregar un Menú
               </div>
             </div>
 
           ) : (
-            <div>
+            <div className="d-flex flex-wrap justify-content-end">
               <Link
                 to="/product/history"
-                className="btn-primary text-decoration-none text-center text-light me-4"
+                className="delete-btn text-decoration-none text-center text-light mb-2 mb-lg-0"
               >
                 Historial
               </Link>
               <Link
                 to="/product/create"
-                className="btn-primary text-decoration-none text-center text-light"
+                className="delete-btn text-decoration-none text-center text-light"
               >
                 Agregar un Menú
               </Link>
@@ -69,8 +69,8 @@ const ProductsTable = () => {
           )}
         </div>
         <hr />
-        <div className="d-flex justify-content-between align-items-center">
-          <Form.Select id="categoryFilter" onChange={(e) => filterByCategory(e.target.value)} className="w-25">
+        <div className="d-flex gap-3 justify-content-lg-between align-items-lg-center flex-wrap">
+          <Form.Select id="categoryFilter" onChange={(e) => filterByCategory(e.target.value)} className="w-25 mx-auto">
             <option disabled selected>Filtrar por Categoría</option>
             <option value="pizza">Pizza</option>
             <option value="hamburguesa">Hamburguesa</option>
@@ -79,11 +79,11 @@ const ProductsTable = () => {
             <option value="bebidas">Bebidas</option>
             <option value="postre">Postre</option>
           </Form.Select>
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center mx-auto">
             <h5>
               Precio:
             </h5>
-            <Form.Group style={{ width: '150px' }} >
+            <Form.Group style={{ width: '100px' }} >
               <Form.Control
                 type="number"
                 placeholder="Minimo"
@@ -94,7 +94,7 @@ const ProductsTable = () => {
               />
             </Form.Group>
             <h5>-</h5>
-            <Form.Group style={{ width: '150px' }} >
+            <Form.Group style={{ width: '100px' }} >
               <Form.Control
                 type="number"
                 placeholder="Maximo"
@@ -108,13 +108,13 @@ const ProductsTable = () => {
               onClick={() => filterByPrice(inputs.min, inputs.max)}
               style={{ cursor: 'pointer' }}
               icon={faAngleRight}
-              size="2x"
+              size="lg"
               className="ms-2"
               color={inputs.max || inputs.min ? "#000000" : "#c4b8b7"} />
           </div>
 
 
-          <Form.Select id="stockFilter" onChange={(e) => filterByStock(e.target.value)} className="w-25">
+          <Form.Select id="stockFilter" onChange={(e) => filterByStock(e.target.value)} className="w-25 mx-auto">
             <option disabled selected>Filtrar por Stock</option>
             <option value="en-stock">En stock</option>
             <option value="sin-stock">Sin Stock</option>

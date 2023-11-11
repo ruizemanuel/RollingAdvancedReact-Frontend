@@ -145,7 +145,7 @@ const UserEdit = () => {
           {spinner ? (
 
             <div className="text-end">
-              <button class="btn-primary text-light" type="button" disabled>
+              <button class="delete-btn text-light" type="button" disabled>
                 <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                 Cargando...
               </button>
@@ -154,7 +154,7 @@ const UserEdit = () => {
           ) : (
 
             <div className="text-end">
-              <button className="btn-primary text-light">Guardar</button>
+              <button className="delete-btn text-light">Guardar</button>
             </div>
 
           )}

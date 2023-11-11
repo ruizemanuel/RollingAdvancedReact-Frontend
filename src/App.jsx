@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import Navigation from "./components/layouts/Navigation";
 import Footer from "./components/layouts/Footer";
 import ProductCreate from "./components/views/productCreate/ProductCreate";
@@ -17,14 +20,38 @@ import HomeContainer from "./components/views/home/HomeContainer";
 import ProductsContainer from "./components/views/ProductsTable/ProductsContainer";
 import UsersContainer from "./components/views/UsersTable/UsersContainer";
 import ProductsHistoryContainer from "./components/views/ProductsHistory/ProductsHistoryContainer";
+import { startLogout } from "./auth/domain/services/authServices";
 
 
 
 function App() {
 
+  const { status: statusApp, message, } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (statusApp !== null && message?.includes("Token")) {
+      toast[statusApp](`${message}`, {
+        position: 'bottom-center',
+        autoClose: 2500,
+        closeButton: false,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      dispatch(startLogout()).then(() => {
+        navigate("/auth/login")
+      })
+    }
+  }, [statusApp]);
+
   return (
     <div>
       <BrowserRouter>
+      <ToastContainer />
         <Navigation/>
         <main>
           <Routes>

@@ -35,7 +35,7 @@ const ProductsTable = () => {
 
   return (
     <div>
-      <Container className="py-5 containerTable">
+      <div className="py-5 px-5 containerTable">
         <div className="d-flex align-items-center justify-content-between">
           <h1>Administrar Menú</h1>
 
@@ -176,7 +176,7 @@ const ProductsTable = () => {
             <h1>🍕 No hay productos disponibles 🍕</h1>
           </div>
         }
-      </Container >
+      </div >
     </div >
   );
 };

@@ -8,21 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateData } from "../../../share/domain/services/appServices";
 
 const UserEdit = () => {
-
-  //State
-  //const [user, setUser] = useState(false);
   const [userAdmin, setUserAdmin] = useState(false);
   const [spinner, setSpinnner] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const { dataToEdit: userApi } = useSelector(state => state.app);
   const dispatch = useDispatch();
-  //References
+
   let rolesRef = [];
-
-  //Param
   const { id } = useParams();
-
-  //Navigate
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +30,6 @@ const UserEdit = () => {
 
   const setCheckboxes = async () => {
     try {
-
-      //la peticion con Axios
       userApi.roles.includes('admin') && setUserAdmin(true);
       setIsChecked(userApi.activo)
       rolesRef = userApi.roles
@@ -57,10 +48,6 @@ const UserEdit = () => {
     setUserAdmin(event.target.checked)
   };
 
-
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -71,7 +58,6 @@ const UserEdit = () => {
       rolesRef = ["user"]
     }
 
-    //guardar el objeto
     const userUpdated = {
       activo: isChecked,
       roles: rolesRef,
@@ -105,7 +91,6 @@ const UserEdit = () => {
       <Container className="py-5">
         <h1>Modificar usuario</h1>
         <hr />
-        {/* Form Product */}
         <Form
           className="my-5"
           onSubmit={handleSubmit}

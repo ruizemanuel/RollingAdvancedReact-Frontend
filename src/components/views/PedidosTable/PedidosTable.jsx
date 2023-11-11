@@ -139,7 +139,6 @@ const PedidosTable = () => {
               'Has eliminado tu pedido',
               'success'
             )
-            //volvemos a recargar la tabla
             getApi_pedidos()
           }
         } catch (error) {
@@ -203,7 +202,6 @@ const PedidosTable = () => {
 
         </div>
         <hr />
-        {/* Table of products */}
         {pedidoBuscado !== null ?
 
           spinnerBody ? (

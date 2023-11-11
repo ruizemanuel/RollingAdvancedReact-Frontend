@@ -19,22 +19,20 @@ import UsersContainer from "./components/views/UsersTable/UsersContainer";
 import ProductsHistoryContainer from "./components/views/ProductsHistory/ProductsHistoryContainer";
 
 
+
 function App() {
-  const [products, setProducts] = useState([]);
-  const [spinner, setSpinnner] = useState(false);
-  const [loggedUser, setLoggedUser] = useState(localStorage.getItem('user-token') ? JSON.parse(localStorage.getItem("user-token")) : {});
 
   return (
     <div>
       <BrowserRouter>
-        <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} products={products} />
+        <Navigation/>
         <main>
           <Routes>
             <Route
               exact
               path="/"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <HomeContainer />
                 </ProtectedRoute>
               }
@@ -43,7 +41,7 @@ function App() {
               exact
               path="/products"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <ProductsContainer />
                 </ProtectedRoute>
               }
@@ -53,7 +51,7 @@ function App() {
               exact
               path="/product/create"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <ProductCreate />
                 </ProtectedRoute>
               }
@@ -63,7 +61,7 @@ function App() {
               exact
               path="/product/edit/:id"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <ProductEdit />
                 </ProtectedRoute>
               }
@@ -73,7 +71,7 @@ function App() {
               exact
               path="/product/history"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <ProductsHistoryContainer />
                 </ProtectedRoute>
               }
@@ -83,7 +81,7 @@ function App() {
               exact
               path="/users"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <UsersContainer />
                 </ProtectedRoute>
               }
@@ -94,7 +92,7 @@ function App() {
               exact
               path="/user/create"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <UserCreate />
                 </ProtectedRoute>
               }
@@ -104,7 +102,7 @@ function App() {
               exact
               path="/user/edit/:id"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <UserEdit />
                 </ProtectedRoute>
               }
@@ -114,7 +112,7 @@ function App() {
               exact
               path="/pedido/edit/:id"
               element={
-                <ProtectedRoute loggedUser={loggedUser}>
+                <ProtectedRoute>
                   <PedidoAdminEdit />
                 </ProtectedRoute>
               }
@@ -122,7 +120,7 @@ function App() {
             <Route
               exact
               path="/auth/login/"
-              element={<Login setLoggedUser={setLoggedUser} />}
+              element={<Login/>}
             />
             <Route exact path="/auth/register/" element={<Register />} />
             <Route exact path="*" element={<Error404 />} />

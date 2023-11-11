@@ -15,21 +15,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getData, updateData } from "../../../share/domain/services/appServices";
 
 const ProductEdit = ({ URL, getApi }) => {
-  //State
   const [spinner, setSpinnner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
   const { dataToEdit: product } = useSelector(state => state.app);
   const [localCategory, setLocalCategory] = useState(product?.category);
-  //Param
   const { id } = useParams();
-  //References
   const productNameRef = useRef('');
   const priceRef = useRef('');
   const stockRef = useRef('');
   const descriptionRef = useRef('');
   const urlImgRef = useRef('');
-  //Navigate
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,7 +38,6 @@ const ProductEdit = ({ URL, getApi }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //valido los campos
     if (validateProductName(productNameRef.current.value) !== 'ok') {
       Swal.fire("Error!", `${validateProductName(productNameRef.current.value)}`, "error");
       return;
@@ -64,7 +59,6 @@ const ProductEdit = ({ URL, getApi }) => {
       return;
     }
 
-    //guardar el objeto
     const productUpdated = {
       productName: productNameRef.current.value,
       price: priceRef.current.value,
@@ -94,7 +88,6 @@ const ProductEdit = ({ URL, getApi }) => {
       <Container className="py-5">
         <h1>Modificar Plato</h1>
         <hr />
-        {/* Form Product */}
         <Form
           className="my-5"
           onSubmit={handleSubmit}

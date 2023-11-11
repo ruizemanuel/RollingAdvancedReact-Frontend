@@ -1,4 +1,3 @@
-// Reg expressions
 const regExpProductName = /^[A-Za-z\s?]+$/;
 const regExpPrice = /[0-9]+$/;
 const regExpDescription = /^[a-zA-Z.,\s]+$/;
@@ -7,7 +6,7 @@ const regExpCategory = /^[A-Za-z\-\s?]+$/;
 const regExpEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const regExpPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-// Functions to validate
+
 export const validateProductName = (field) => {
   if (regExpProductName.test(field) && field.trim() !== "") {
     return 'ok';

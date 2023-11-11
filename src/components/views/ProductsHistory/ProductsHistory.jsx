@@ -51,7 +51,6 @@ const ProductsHistory = () => {
                     )
                     :
                     <div className="no-products-found d-flex align-items-center justify-content-center">
-                        {/* No products found message */}
                         <h1>🍕 Historial no disponible 🍕</h1>
                     </div>
                 }

@@ -58,30 +58,23 @@
   width: 100%;
 }
 
-/* Logo */
 .logo {
   font-family: "Lobster", cursive;
   font-size: 30px !important;
   color: #40270e !important;
 }
 
-/* Truncate img link */
 .truncate-img-link {
   overflow: hidden;
-  /* width: 600px; cambiando esto elegimos el ancho del texto */
   -webkit-box-orient: vertical;
   display: -webkit-box;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
-  /*cambiando este numero elegimos la cantidad de filas que queremos que muestre el texto*/
 }
 
-/* No products found */
 .no-products-found {
   height: 55vh !important;
 }
-
-/* SWEETALERT2 CUSTOM COLOR */
 
 .swal2-styled.swal2-confirm {
   border: 0;
@@ -136,14 +129,12 @@
   box-shadow: 0 0 0 3px rgb(236, 209, 120) !important;
 }
 
-/* Cards-img */
 .img-menu {
   height: 45vh !important;
   object-fit: cover;
 }
 
 
-/* BTN UPDATE */
 .update-btn {
   background: #ffb703;
   border: #ffb703 solid 1px;
@@ -165,7 +156,6 @@
   border: #ffb703 1px solid;
 }
 
-/* BTN DELETE */
 .delete-btn {
   background: #d62828;
   border: #d62828 solid 1px;
@@ -190,8 +180,6 @@
 .pedidosContainer {
   margin-bottom: 18.5rem;
 }
-
-/* Tablas */
 
 .align-middle td:nth-child(6) {
   white-space: nowrap;
@@ -237,7 +225,6 @@
   border: none;
 }
 
-/* DROPDOWN CATEGORIAS HOME */
 #dropdowCategories{
   background-color: #003049;
   color: #fffeff;

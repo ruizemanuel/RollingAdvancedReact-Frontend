@@ -1,37 +1,22 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Container, NavDropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./LogoRolling.png"
 import "./navbar.css"
+import { startLogout } from "../../auth/domain/services/authServices";
 
 
-const Navigation = ({ loggedUser, setLoggedUser, products }) => {
+const Navigation = () => {
 
-  const [roles, setRoles] = useState(loggedUser.roles);
-
+  const { status, roles } = useSelector((state) => state.auth);
   const navigate = useNavigate()
-
-  useEffect(() => {
-    getUsers();
-  }, [loggedUser]);
-
-  const getUsers = async () => {
-
-    setRoles(loggedUser.roles)
-
-  };
-
-  roles?.includes('admin') && localStorage.setItem("is-authorized", JSON.stringify('true'));
-
-
+  const dispatch = useDispatch();
 
   const logout = () => {
-    localStorage.removeItem("user-token");
-    localStorage.removeItem("is-authorized");
-    setLoggedUser({})
-    setRoles([])
-    navigate("/")
+    dispatch(startLogout()).then(() => {
+      navigate("/")
+    })
   }
 
   return (
@@ -48,9 +33,8 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
               <Link className="nav-link d-flex flex-column justify-content-center" to="/">
                 Inicio
               </Link>
-              {loggedUser.email ? (
+              {status === 'authenticated' && roles?.includes('admin') ? (
                 <>
-                  {roles?.includes('admin') ? (
                     <NavDropdown title="Administrar" id="administrar-dropdown">
                     <Link className="dropdown-item" to="/products">
                       Menu
@@ -59,12 +43,6 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                       Usuarios
                     </Link>
                   </NavDropdown>
-
-                  ) : (
-                    <div></div>
-                  )
-                  }
-
                   <>
                     <div className="d-flex flex-column justify-content-center">
                       <Button variant="dark" onClick={logout}>
@@ -73,16 +51,13 @@ const Navigation = ({ loggedUser, setLoggedUser, products }) => {
                     </div>
 
                   </>
-
                 </>
               ) : (
                 <>
                   <Link className="nav-link d-flex flex-column justify-content-center" to="/auth/login">
                     Iniciar sesión
                   </Link>
-
                 </>
-
               )}
             </Nav>
           </Navbar.Collapse>

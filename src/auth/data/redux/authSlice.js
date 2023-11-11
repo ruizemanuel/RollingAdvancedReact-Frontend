@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 export const authSlice = createSlice({
@@ -10,6 +10,7 @@ export const authSlice = createSlice({
     displayName: null,
     token: null,
     id_rol: null,
+    roles: null,
     permissions: null,
     alert: null,
   },
@@ -22,7 +23,7 @@ export const authSlice = createSlice({
       state.displayName = payload.name
       state.message = null
       state.token = payload.token
-      state.roles = null
+      state.roles = payload.roles
       state.permissions = null
       state.commissions = null
       state.alert = "success"

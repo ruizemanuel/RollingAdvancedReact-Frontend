@@ -27,13 +27,10 @@ const Register = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  //useNavigate
   const navigate = useNavigate();
-
 
   const form = useRef();
 
-  //Funcion para crear el producto
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,8 +48,6 @@ const Register = () => {
       return;
     }
 
-
-    //Envio los datos para guardarlos
     const newUser = {
       name: inputs.name,
       email: inputs.email,

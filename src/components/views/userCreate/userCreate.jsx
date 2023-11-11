@@ -13,13 +13,11 @@ import { createNewData } from "../../../share/domain/services/appServices";
 
 const UserCreate = () => {
 
-
-  //One general state
   const [inputs, setInputs] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
-  //useNavigate
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,12 +27,8 @@ const UserCreate = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  //función para crear
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
-    //validar los campos
 
     if (validateUserName(inputs.name) !== 'ok') {
       Swal.fire("Error!", `${validateUserName(inputs.name)}`, "error");
@@ -50,10 +44,6 @@ const UserCreate = () => {
       return;
     }
 
-
-
-
-    //Enviar los datos
     const newUser = {
       name: inputs.name,
       email: inputs.email,
@@ -75,9 +65,7 @@ const UserCreate = () => {
       if (result.isConfirmed) {
         try {
           setSpinnner(true)
-          //la petición con Axios
           dispatch(createNewData('/auth/register', newUser)).then(() => {
-            // resetear el formulario
             e.target.reset();
             navigate("/users");
           })
@@ -103,7 +91,6 @@ const UserCreate = () => {
       <Container className="py-5">
         <h1>Agregar usuario</h1>
         <hr />
-        {/* Form Product */}
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicUserName">
             <Form.Label>Nombre de usuario*</Form.Label>

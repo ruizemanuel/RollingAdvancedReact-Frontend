@@ -2,66 +2,38 @@ import React, { useState } from "react";
 import { Alert, Container, Form, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "../../../config/axiosInit";
 import "./login.css"
 import logo from "./Logo.png"
+import { useDispatch } from "react-redux";
+import { startLogin } from "../../../auth/domain/services/authServices";
 
-const Login = ({ setLoggedUser }) => {
+const Login = () => {
   const [inputs, setInputs] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-
-  const URL = import.meta.env.VITE_REACT_APP_API_RESTAURANTE;
-
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  //useNavigate
+
   const navigate = useNavigate();
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //Valido los campos
 
-    //Envio los datos
     try {
 
       setSpinnner(true)
 
-      const res = await axios.post(`${URL}/auth/login`, {
-        email: inputs.email,
-        password: inputs.password,
-      });
-
-      if (res.status === 200) {
-
-
-
+      dispatch(startLogin({ email: inputs.email, password: inputs.password })).then(() => {
         Swal.fire("Bienvenido!", "Inicio de sesión exitoso.", "success");
-        const data = res.data;
-
-        //guardar en localStorage el token
-        if (data.roles.includes('admin')) {
-          localStorage.setItem("user-token", JSON.stringify(data));
-          setLoggedUser(data);
-        } else {
-          delete data['token'];
-          localStorage.setItem("user-token", JSON.stringify(data));
-          setLoggedUser(data);
-        }
-
-
-
-
         navigate("/");
-      }
+      })
+
     } catch (error) {
       console.log(error);
       setError(true);

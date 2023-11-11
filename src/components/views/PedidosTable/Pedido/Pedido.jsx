@@ -26,12 +26,10 @@ const Pedido = ({ habilitado, pedido, pedidoBuscado, URL, getApi, getSpinner, ha
               'Has eliminado el producto de tu carrito',
               'success'
             )
-            //volvemos a recargar la tabla
             getApi();
           }
         } catch (error) {
           console.log(error);
-          //agregar cartel alert o modal al usuario con el error
         }
         finally {
           getSpinner(false)

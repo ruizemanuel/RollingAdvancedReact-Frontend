@@ -1,8 +1,6 @@
 import axios from "../../../config/axiosInit";
 import config from "../../../config/configApi";
 
-//const email = JSON.parse(window.localStorage.getItem('persist:auth'))?.email?.replace(/"/g, '');
-
 
 export const getDataRepo = async (path) => {
     try {
@@ -12,7 +10,6 @@ export const getDataRepo = async (path) => {
         throw error
     }
 }
-
 
 export const getDataByIdRepo = async (path, id) => {
     try {
@@ -82,11 +79,8 @@ export const getTotalByDateRepo = async (dates) => {
         const { data } = await axios.post(`${URL}/total`, dates, {
             headers: {
                 "Content-Type": "application/json",
-                // "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                //   .token,
             },
         });
-        console.log('data total', data)
         return data
     } catch (error) {
         throw error

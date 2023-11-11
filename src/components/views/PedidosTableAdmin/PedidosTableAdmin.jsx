@@ -31,7 +31,6 @@ const PedidosTableAdmin = () => {
         </div>
         <hr />
         <CustomDatePicker onDateChange={setSelectedDateRange}/>
-        {/* Table of products */}
         {filterPedidosByDate(pedidos, selectedDateRange).length !== 0 ?
           <Table bordered hover responsive className="align-middle mt-3">
             <thead>
@@ -55,7 +54,6 @@ const PedidosTableAdmin = () => {
           </Table>
           :
           <div className="no-products-found d-flex align-items-center justify-content-center">
-            {/* No products found message */}
             <h1>🍕 No se encontraron pedidos 🍕</h1>
           </div>
         }

@@ -6,7 +6,6 @@ export const getData = (path) => async (dispatch) => {
     dispatch(loading())
     try {
         const data = await getDataRepo(path)
-        console.log('en get data', data)
         dispatch(success({ data }))
     } catch (e) {
         const { message } = e.response.data

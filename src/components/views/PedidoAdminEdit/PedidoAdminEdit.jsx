@@ -50,7 +50,6 @@ const PedidoAdminEdit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //guardar el objeto
     const pedidoUpdated = {
       estado: isChecked ? "Realizado" : "Pendiente",
     };
@@ -77,7 +76,6 @@ const PedidoAdminEdit = () => {
       <Container className="py-5">
         <h1>Modificar Pedido</h1>
         <hr />
-        {/* Form Product */}
         <Form
           className="my-5"
           onSubmit={handleSubmit}

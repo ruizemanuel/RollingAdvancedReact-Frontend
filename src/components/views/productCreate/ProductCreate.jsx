@@ -16,15 +16,14 @@ import { createNewData, getData } from "../../../share/domain/services/appServic
 
 const ProductCreate = () => {
 
-  //One general state
+
   const [inputs, setInputs] = useState({});
   const [spinner, setSpinnner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
   const { loading } = useSelector(state => state.app);
-  console.log('loading en create', loading);
   const dispatch = useDispatch();
-  //useNavigate
+
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -33,11 +32,9 @@ const ProductCreate = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  //función para crear
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    //validar los campos
 
     if (validateProductName(inputs.productName) !== 'ok') {
       Swal.fire("Error!", `${validateProductName(inputs.productName)}`, "error");
@@ -60,10 +57,6 @@ const ProductCreate = () => {
       return;
     }
 
-
-
-
-    //Enviar los datos
     const newProduct = {
       productName: inputs.productName,
       price: inputs.price,
@@ -85,7 +78,6 @@ const ProductCreate = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         dispatch(createNewData('/products', newProduct)).then(() => {
-          // resetear el formulario
           e.target.reset();
           navigate("/products");
         })
@@ -100,7 +92,6 @@ const ProductCreate = () => {
       <Container className="py-5">
         <h1>Agregar Plato</h1>
         <hr />
-        {/* Form Product */}
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Nombre*</Form.Label>

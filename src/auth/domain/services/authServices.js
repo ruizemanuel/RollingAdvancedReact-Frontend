@@ -6,13 +6,11 @@ export const startLogin = (form) => async (dispatch) => {
     dispatch(loading())
     try {
       const data = await loginRepo(form);
-      console.log('la data', data)
       dispatch(login(data))
       dispatch(success({message: "Bienvenido!"}))
 
     } catch (e) {
       const { message } = e.response.data
-      console.log({message})
       dispatch(error({ message: message }))
   }
 }

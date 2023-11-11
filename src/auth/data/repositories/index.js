@@ -1,15 +1,13 @@
 import axios from "axios";
 
-const URL = import.meta.env.VITE_API_BAKER_AUTH;
+const URL = import.meta.env.VITE_REACT_APP_API_RESTAURANTE;
 
 
 export const loginRepo = async (form) => {
     try {
-        const {data} = await axios.post(`${URL}/login` , form, {
+        const {data} = await axios.post(`${URL}/auth/login` , form, {
             headers: {
                 "Content-Type": "application/json",
-                // "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                //   .token,
             },
             
         });

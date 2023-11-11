@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Form, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import User from "./User/User";
-import axios from '../../../config/axiosInit'
-import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../../../share/domain/services/appServices";
+import { useSelector } from "react-redux";
 import SearchBar from "../../layouts/SearchBar";
 
 const UsersTable = () => {
 
-  //const [users, setUsers] = useState([]);
-  const dispatch = useDispatch();
   const { data: users } = useSelector(state => state.app);
   const [filteredUsers, setFilteredUsers] = useState(users);
 
@@ -61,8 +57,6 @@ const UsersTable = () => {
                 <User
                   key={user._id}
                   user={user}
-                // URL_usuarios={URL}
-                // getApi_users={getApi}
                 />
               ))}
             </tbody>

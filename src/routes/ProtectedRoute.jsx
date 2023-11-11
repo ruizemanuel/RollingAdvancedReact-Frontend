@@ -1,13 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 
-const ProtectedRoute = ({ loggedUser,children }) => {
-
-   const token = JSON.parse(localStorage.getItem("is-authorized")) || false;
-
- if(!token){
-    return <Navigate to={"/error"}></Navigate>
+const ProtectedRoute = ({ children }) => {
+   const { status, roles } = useSelector((state) => state.auth);
+   console.log(roles);
+ if(status === 'no-authenticated' && !roles?.includes('admin')){
+    return <Navigate to={"/auth/login"}></Navigate>
  } else{
     return children
  }

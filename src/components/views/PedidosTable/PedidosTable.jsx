@@ -163,8 +163,8 @@ const PedidosTable = () => {
             spinner ? (
 
               <div className="text-end">
-                <button class="delete-btn text-light" type="button" disabled>
-                  <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+                <button className="delete-btn text-light" type="button" disabled>
+                  <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                   Cargando...
                 </button>
               </div>
@@ -206,9 +206,9 @@ const PedidosTable = () => {
 
           spinnerBody ? (
 
-            <div class="text-center" >
-              <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+            <div className="text-center" >
+              <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
               </div>
             </div>
 
@@ -290,8 +290,8 @@ const PedidosTable = () => {
                 {spinnerEnviar ? (
 
                   <div className="text-end">
-                    <button class="delete-btn text-light" type="button" disabled>
-                      <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+                    <button className="delete-btn text-light" type="button" disabled>
+                      <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                       Cargando...
                     </button>
                   </div>

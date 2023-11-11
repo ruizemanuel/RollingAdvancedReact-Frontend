@@ -107,8 +107,8 @@ const PedidoAdminEdit = () => {
           {spinner ? (
 
             <div className="text-end">
-              <button class="delete-btn text-light" type="button" disabled>
-                <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+              <button className="delete-btn text-light" type="button" disabled>
+                <span className="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
                 Cargando...
               </button>
             </div>

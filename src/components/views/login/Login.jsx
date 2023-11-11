@@ -82,9 +82,9 @@ const Login = () => {
                 />
               </Form.Group>
               {spinner ? (
-                <div class="text-center">
-                  <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className="text-center">
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
                   </div>
                 </div>
               ) : (
@@ -93,21 +93,6 @@ const Login = () => {
                 </div>
               )
               }
-
-              {spinner ? (
-                <div></div>
-              ) : (
-                <div className="text-center"> <p>No tienes cuenta? <Link
-                  to="/auth/register"
-                  className="btn-register">
-                  <span className="registerLink">Registrate</span>
-
-                </Link>
-                </p>
-                </div>
-              )
-              }
-
             </Form>
             {error ? (
               <Alert variant="danger" onClick={() => setError(false)} dismissible>

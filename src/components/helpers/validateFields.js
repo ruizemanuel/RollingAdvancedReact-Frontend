@@ -63,7 +63,6 @@ export const validateCategory = (field) => {
     field?.trim() !== "" &&
     (field === "pizzas" ||
       field === "hamburguesas" ||
-      field === "vegetarianos" ||
       field === "bebidas" ||
       field === "postres")
   ) {

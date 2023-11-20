@@ -155,7 +155,6 @@ const ProductEdit = ({ URL, getApi }) => {
               <option value="">Selecciona una categoría</option>
               <option value="pizzas">Pizzas</option>
               <option value="hamburguesas">Hamburguesas</option>
-              <option value="vegetarianos">Vegetarianos</option>
               <option value="bebidas">Bebidas</option>
               <option value="postres">Postres</option>
             </Form.Select>

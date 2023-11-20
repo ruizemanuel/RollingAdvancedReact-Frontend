@@ -160,12 +160,11 @@ const ProductCreate = () => {
               onChange={(e) => handleChange(e)}
             >
               <option value="">Selecciona una categoría</option>
-              <option value="pizza">Pizza</option>
-              <option value="hamburguesa">Hamburguesa</option>
-              <option value="taco">Tacos</option>
-              <option value="veganas">Veganas</option>
+              <option value="pizzas">Pizzas</option>
+              <option value="hamburguesas">Hamburguesas</option>
+              <option value="vegetarianos">Vegetarianos</option>
               <option value="bebidas">Bebidas</option>
-              <option value="postre">Postre</option>
+              <option value="postres">Postres</option>
             </Form.Select>
           </Form.Group>
 

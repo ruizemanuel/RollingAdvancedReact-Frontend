@@ -61,12 +61,11 @@ export const validateCategory = (field) => {
   if (
     regExpCategory.test(field) &&
     field?.trim() !== "" &&
-    (field === "pizza" ||
-      field === "hamburguesa" ||
-      field === "taco" ||
-      field === "veganas" ||
+    (field === "pizzas" ||
+      field === "hamburguesas" ||
+      field === "vegetarianos" ||
       field === "bebidas" ||
-      field === "postre")
+      field === "postres")
   ) {
     return 'ok';
   } else {

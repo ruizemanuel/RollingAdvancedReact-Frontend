@@ -18,7 +18,7 @@ const ProductsTable = () => {
     filterByPrice,
     filterByStock,
     restoreFilters,
-  } = useProductFilters(products); 
+  } = useProductFilters(products);
 
   const handleChangePrice = (event) => {
     const name = event.target.name;
@@ -72,12 +72,11 @@ const ProductsTable = () => {
         <div className="d-flex gap-3 justify-content-lg-between align-items-lg-center flex-wrap">
           <Form.Select id="categoryFilter" onChange={(e) => filterByCategory(e.target.value)} className="w-25 mx-auto">
             <option disabled selected>Filtrar por Categoría</option>
-            <option value="pizza">Pizza</option>
-            <option value="hamburguesa">Hamburguesa</option>
-            <option value="taco">Tacos</option>
-            <option value="veganas">Veganas</option>
+            <option value="pizzas">Pizzas</option>
+            <option value="hamburguesas">Hamburguesas</option>
+            <option value="vegetarianos">Vegetarianos</option>
             <option value="bebidas">Bebidas</option>
-            <option value="postre">Postre</option>
+            <option value="postres">Postres</option>
           </Form.Select>
           <div className="d-flex align-items-center mx-auto">
             <h5>

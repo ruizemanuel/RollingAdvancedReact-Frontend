@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Container, Form, Table } from "react-bootstrap";
+import React from "react";
+import { Container, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const ProductsHistory = () => {

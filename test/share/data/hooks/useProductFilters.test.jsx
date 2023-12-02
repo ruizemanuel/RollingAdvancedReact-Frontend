@@ -18,7 +18,6 @@ describe('TEST - HOOK useProductsFilters', () => {
         act(() => {
             result.current.filterByCategory('pizza');
         });
-        console.log('filteredProducts después del filtro:', result.current.filteredProducts);
 
         expect(result.current.filteredProducts).toEqual([products[0]]);
         expect(result.current.filter).toBe(true);

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Container, Form, Table } from "react-bootstrap";
+import {  Form, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "./Product/Product";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

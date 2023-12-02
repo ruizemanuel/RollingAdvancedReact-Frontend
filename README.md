@@ -1,14 +1,11 @@
 # Rolling Restaurant
 
-Página web realizada con ReactJS de temática Restaurante donde podremos mostrar productos en una tabla, darles de alta, editarlos y borrarlos. Podremos mostrar los usuarios registrados y modificar su rol asi como tambien desactivarlos para que no puedan iniciar sesion. También podemos modificar el status
-de los pedidos hechos por los usuarios de pendiente a realizado
-
-El usuario que no es administrador puede seleccionar productos de la pagina, agregarlos a un carrito, eliminarlos, vaciar el carrito y pagar su compra
-con efectivo o tarjeta
+Página web realizada con ReactJS la cual sirve de panel de administración de una app de un Restaurante donde podremos ver los productos en una tabla, darles de alta, editarlos y borrarlos. Podremos mostrar los usuarios registrados y modificar su rol asi como tambien desactivarlos para que no puedan iniciar sesion. También podemos modificar el status
+de los pedidos hechos por los usuarios de pendiente a realizado.
 
 En este proyecto se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas, MongoDB para almacenar los productos, usuarios y pedidos, emailjs para enviar un mail al usuario informando de su registro en la pagina y Axios para hacer peticiones a nuestro backend.
 
-URL del proyecto: https://rolling-restaurant.netlify.app/
+URL del proyecto: https://rollingadvancedreact-frontend.netlify.app
 
 ---
 
@@ -20,30 +17,20 @@ Cuando se clone este repositorio se deben ejecutar los siguientes comandos:
 npm i 
 
 ### Para ejecutar nuestra app de react
-npm start
+npm run start
 
 ### Descargar el backend desde:
-https://github.com/ruizemanuel/Rolling-Restaurant-Backend
+https://github.com/ruizemanuel/RollingAdvancedReact-Backend
 
 ---
 ## Variables de entorno
 
-Esta app utiliza las siguientes variables de entorno:
+Esta app utiliza la siguiente variable de entorno:
 
-REACT_APP_API_HAMBURGUESERIA
+VITE_REACT_APP_API_RESTAURANTE
 
-REACT_APP_API_HAMBURGUESERIA_USUARIO
-
-REACT_APP_API_HAMBURGUESERIA_USERS
-
-REACT_APP_API_HAMBURGUESERIA_PEDIDOS
-
-## Autores
+## Autor
 
 👤 **Ruiz, Jose Emanuel**
 
-👤 **Diaz, Mariano**
-
-👤 **Valdez, Miguel**
-
-👤 **Sale, Ezequiel**
+* GitHub: [ruizemanuel](https://github.com/ruizemanuel)

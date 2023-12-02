@@ -10,9 +10,8 @@ import {
   validateStock,
   validateUrl,
 } from "../../helpers/validateFields";
-import axios from "../../../config/axiosInit"
 import { useDispatch, useSelector } from "react-redux";
-import { getData, updateData } from "../../../share/domain/services/appServices";
+import { updateData } from "../../../share/domain/services/appServices";
 
 const ProductEdit = ({ URL, getApi }) => {
   const [spinner, setSpinnner] = useState(false);

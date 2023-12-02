@@ -10,7 +10,6 @@ import {
   validateCategory,
 } from "../../helpers/validateFields";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../config/axiosInit";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewData, getData } from "../../../share/domain/services/appServices";
 

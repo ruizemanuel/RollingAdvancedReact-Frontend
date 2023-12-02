@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Container, Form, Row, Col } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import "./login.css"
 import logo from "./Logo.png"
 import { useDispatch, useSelector } from "react-redux";

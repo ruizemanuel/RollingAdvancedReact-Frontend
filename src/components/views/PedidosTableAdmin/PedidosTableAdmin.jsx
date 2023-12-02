@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import PedidoAdmin from "./PedidoAdmin/PedidoAdmin";
-import axios from "../../../config/axiosInit"
 import { useSelector } from "react-redux";
 import CustomDatePicker from "../../DatePicker";
 

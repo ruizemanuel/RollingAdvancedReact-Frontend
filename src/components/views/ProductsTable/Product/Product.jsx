@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "../../../../config/axiosInit"
 import { useDispatch } from "react-redux";
 import { deleteItem, getData, getDataToEdit } from "../../../../share/domain/services/appServices";
 

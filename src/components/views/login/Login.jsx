@@ -5,20 +5,23 @@ import "./login.css"
 import logo from "./Logo.png"
 import { useDispatch, useSelector } from "react-redux";
 import { startLogin } from "../../../auth/domain/services/authServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const Login = () => {
   const { message } = useSelector((state) => state.app);
   const [inputs, setInputs] = useState({});
+  const [eye, setEye] = useState(true);
   const [spinner, setSpinnner] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(message === 'Bienvenido'){
+    if (message === 'Bienvenido') {
       navigate("/");
-    } 
-  },[message])
+    }
+  }, [message])
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -73,15 +76,22 @@ const Login = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Contraseña*</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="*****"
-                  name="password"
-                  value={inputs.password || ""}
-                  onChange={(e) => handleChange(e)}
-                  required
-                  maxLength={20}
-                />
+                <div className="position-relative d-flex align-items-center">
+                  <Form.Control
+                    type = { eye ? "text": "password" }
+                    placeholder="*****"
+                    name="password"
+                    value={inputs.password || ""}
+                    onChange={(e) => handleChange(e)}
+                    required
+                    maxLength={20}
+                  />
+                  <FontAwesomeIcon
+                    className="position-absolute top-50 end-0 translate-middle-y me-2"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(() => setEye(!eye))}
+                    icon={eye ? faEye : faEyeSlash} />
+                </div>
               </Form.Group>
               {spinner ? (
                 <div className="text-center">

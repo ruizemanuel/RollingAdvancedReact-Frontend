@@ -42,8 +42,10 @@ export default function BarsChart() {
         },
         scales: {
             y: {
-                min: -500,
-                max: 1000
+                min: 0,
+                max: beneficios?.reduce((maxVenta, actual) => 
+                (actual.ventas > maxVenta.ventas) ? actual : maxVenta
+            )?.ventas
             },
             x: {
                 ticks: { color: 'rgba(0, 220, 195)' }

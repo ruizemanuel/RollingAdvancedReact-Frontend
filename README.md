@@ -3,7 +3,7 @@
 Página web realizada con ReactJS la cual sirve de panel de administración de una app de un Restaurante donde podremos ver los productos en una tabla, darles de alta, editarlos y borrarlos. Podremos mostrar los usuarios registrados y modificar su rol asi como tambien desactivarlos para que no puedan iniciar sesion. También podemos modificar el status
 de los pedidos hechos por los usuarios de pendiente a realizado.
 
-En este proyecto se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas, MongoDB para almacenar los productos, usuarios y pedidos, emailjs para enviar un mail al usuario informando de su registro en la pagina y Axios para hacer peticiones a nuestro backend.
+En este proyecto se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas, Redux como manejador de estado global, MongoDB para almacenar los productos, usuarios y pedidos, emailjs para enviar un mail al usuario informando de su registro en la pagina y Axios para hacer peticiones a nuestro backend.
 
 URL del proyecto: https://rollingadvancedreact-frontend.netlify.app
 
